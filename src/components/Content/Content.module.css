@@ -1,0 +1,9 @@
+.wrapper {
+	display: flex;
+	flex-direction: row;
+	color: aquamarine;
+	background-color: burlywood;
+}
+
+.img {
+}

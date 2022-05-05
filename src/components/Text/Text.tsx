@@ -16,7 +16,7 @@ function Text({ color }: Props) {
 		[css.blue]: color === "blue",
 	});
 
-	return <span className={classNames}>Lorem ipsum</span>;
+	return <span className={classNames}>{color}</span>;
 }
 
 export { Text };
