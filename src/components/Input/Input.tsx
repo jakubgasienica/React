@@ -1,11 +1,7 @@
-// style inputa, dwa propsy max&min lenght - wyswietlanie nazwy to pole musi byc dluzsze niz ... || to pole musi byc krótsze od, pole opcjonalne
-// ostylowanie walidacji - bład z animacją, wyjezdzał spod inputa? border: red
-// props children
-// komponent button z uzyciem props children
-// komponent głwony z oferta
-// jsx - renderowanie warunkowe
+//typ generyczny
+//fromularz do genrowania it jobs
+//co przyjmuje endpoint
 
-// import { isPropertySignature } from "typescript";
 import css from "./Input.module.css";
 import { Error } from "../Error/Error";
 import { useState, ChangeEvent } from "react";
@@ -13,11 +9,11 @@ import { useState, ChangeEvent } from "react";
 type Props = {
 	placeholder: string;
 	type?: Type;
-	value: string;
+	value?: string;
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-type Type = "password" | "text" | "email";
+type Type = "password" | "text" | "email" | "file";
 
 function Input({ placeholder, type = "text", value, onChange }: Props) {
 	return (
@@ -30,8 +26,8 @@ function Input({ placeholder, type = "text", value, onChange }: Props) {
 				value={value}
 			/>
 
-			{value.length >= 8 && <Error>Za długa nazwa</Error>}
-			{value.length <= 2 && <Error>Za krótka nazwa</Error>}
+			{value && value.length >= 8 && <Error>Za długa nazwa</Error>}
+			{value && value.length <= 2 && <Error>Za krótka nazwa</Error>}
 		</div>
 	);
 }

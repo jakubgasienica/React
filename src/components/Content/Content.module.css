@@ -1,9 +1,15 @@
 .wrapper {
 	display: flex;
 	flex-direction: row;
-	color: aquamarine;
-	background-color: burlywood;
+	color: #125973;
+	background-color: #f8f3c0;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	height: 120px;
+	border-bottom: 3px solid #125973;
 }
 
 .img {
+	height: 100px;
 }

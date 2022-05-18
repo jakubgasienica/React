@@ -1,16 +1,12 @@
 import React from "react";
 import logo from "./logo.svg";
 import css from "./App.module.css";
-import { Text } from "./components/Text/Text";
 import { Header } from "./components/Header/Header";
 import { Input } from "./components/Input/Input";
 import { Button } from "./components/Button/Button";
 import { Content } from "./components/Content/Content";
+import { Form } from "./pages/Form/Form";
 import { useState, ChangeEvent } from "react";
-
-// import plik o nazwie App.module.css
-// wyciagniecie z tego pliku nazwy klas, np. .footer, .offer
-// css { footer: 'App_footer_ed234', offer: 'App_offer_234ebc' }
 
 function App() {
 	const [formData, setFormData] = useState({
@@ -25,7 +21,10 @@ function App() {
 		console.log(email, password);
 	}
 
-	const handleChange = (key: string, event: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (
+		key: keyof typeof formData,
+		event: ChangeEvent<HTMLInputElement>
+	) => {
 		const str = event.target.value;
 
 		setFormData(state => ({
@@ -53,7 +52,7 @@ function App() {
 				<Input
 					placeholder='Wpisz swój mail'
 					value={formData.email}
-					onChange={event => handleChange("blablabla", event)}
+					onChange={event => handleChange("email", event)}
 				/>
 				<Input
 					placeholder='podaj hasło'
@@ -66,6 +65,7 @@ function App() {
 				Przykład użycia butona z props.children
 			</Button>
 			<Content></Content>
+			<Form></Form>
 		</>
 	);
 }
