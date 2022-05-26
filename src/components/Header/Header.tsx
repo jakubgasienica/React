@@ -1,6 +1,7 @@
 import css from "./Header.module.css";
 import logo from "./logo.png";
 import Select, { Options } from "react-select";
+import { Link } from "react-router-dom";
 
 // const options: Options<{ value: string; label: string }> = [
 // 	{ value: "latest", label: "latest" },
@@ -34,6 +35,8 @@ function Header() {
 					<button className={css.filterBoxButton}>lowest salary</button>
 				</div>
 			</div>
+			<Link to='/'>Home</Link>
+			<Link to='form'>Form</Link>
 		</div>
 	);
 }

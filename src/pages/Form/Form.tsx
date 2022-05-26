@@ -5,6 +5,7 @@ import { Button } from "../../components/Button/Button";
 
 // react router
 // poprawic formularz
+// pobieranie id z stack
 
 type FormData = {
 	title: string;
@@ -55,6 +56,21 @@ function Form() {
 				placeholder='Add title'
 				value={formData.title}
 				onChange={event => handleChange("title", event)}
+			/>
+			<Input
+				placeholder='Salary'
+				value={formData.salary}
+				onChange={event => handleChange("salary", event)}
+			/>
+			<Input
+				placeholder='City'
+				value={formData.city}
+				onChange={event => handleChange("city", event)}
+			/>
+			<Input
+				placeholder='Stack'
+				value={formData.city}
+				onChange={event => handleChange("stack", event)}
 			/>
 			<Input
 				placeholder='Add Logo your firm'
