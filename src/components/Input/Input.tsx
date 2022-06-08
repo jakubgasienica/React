@@ -1,7 +1,3 @@
-//typ generyczny
-//fromularz do genrowania it jobs
-//co przyjmuje endpoint
-
 import css from "./Input.module.css";
 import { Error } from "../Error/Error";
 import { useState, ChangeEvent } from "react";

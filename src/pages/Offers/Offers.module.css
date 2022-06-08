@@ -6,8 +6,9 @@
 	flex-wrap: wrap;
 	justify-content: space-around;
 	align-items: center;
-	height: 120px;
+	height: 100%;
 	border-bottom: 3px solid #125973;
+	padding: 10px;
 }
 
 .img {

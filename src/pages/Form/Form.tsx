@@ -2,10 +2,7 @@ import css from "./Form.module.css";
 import { useState, ChangeEvent } from "react";
 import { Input } from "../../components/Input/Input";
 import { Button } from "../../components/Button/Button";
-
-// react router
-// poprawic formularz
-// pobieranie id z stack
+import { mapResponse } from "../Offers/Offers";
 
 type FormData = {
 	title: string;
@@ -13,6 +10,23 @@ type FormData = {
 	salary: string;
 	city: string;
 	stack: string;
+};
+
+type RequestData = {
+	title: string;
+	duration: number;
+	description: string;
+	thumb: string;
+	company_name: string;
+	company_city: string;
+	seniority_id: string;
+	category_ids: string[];
+	benefit_ids: string[];
+	contracts: {
+		salary_from: string;
+		salary_to: string;
+		contract_type_id: string;
+	}[];
 };
 
 function Form() {
@@ -29,6 +43,7 @@ function Form() {
 		event: ChangeEvent<HTMLInputElement>
 	) => {
 		const str = event.target.value;
+
 		setFormData(state => ({
 			...state,
 			[key]: str,
@@ -84,10 +99,3 @@ function Form() {
 }
 
 export { Form };
-
-// 0, "", NaN, false, undefined, null - falsy values ||
-// if (formData.thumb) {
-// 	return formData.thumb.toString()
-// } else {
-// 	return undefined
-// }

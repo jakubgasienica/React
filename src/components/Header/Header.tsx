@@ -3,12 +3,6 @@ import logo from "./logo.png";
 import Select, { Options } from "react-select";
 import { Link } from "react-router-dom";
 
-// const options: Options<{ value: string; label: string }> = [
-// 	{ value: "latest", label: "latest" },
-// 	{ value: "highest", label: "highest salary" },
-// 	{ value: "lowest", label: "lowest salary" },
-// ];
-
 function Header() {
 	return (
 		<div className={css.header}>
