@@ -1,7 +1,7 @@
 import css from "./Offers.module.css";
 import logo from "./logo.png";
-import { useState, useEffect, useContext } from "react";
-import { ConfigContext } from "../../components/ConfigContextProvider/configContext";
+import { useState, useEffect } from "react";
+// import { ConfigContext } from "../../components/ConfigContextProvider/configContext";
 
 type ResponseData = {
 	data: {
@@ -90,7 +90,7 @@ function Offers() {
 	const [loading, setLoading] = useState(false);
 	const [offers, setOffers] = useState<Offer[]>([]);
 	const [error, setError] = useState(false);
-	const value = useContext(ConfigContext);
+	// const value = useContext(ConfigContext);
 
 	useEffect(() => {
 		setLoading(true);

@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect, ReactNode } from "react";
 import {
 	Category,
@@ -38,6 +39,10 @@ type Props = {
 	children: ReactNode;
 };
 
+const UsersContext = React.createContext({
+	config: [],
+});
+
 function ConfigContextProvider({ children }: Props) {
 	const [config, setConfig] = useState<Config>(initialConfig);
 
@@ -52,4 +57,4 @@ function ConfigContextProvider({ children }: Props) {
 	);
 }
 
-export { ConfigContextProvider };
+export { ConfigContextProvider, UsersContext };
