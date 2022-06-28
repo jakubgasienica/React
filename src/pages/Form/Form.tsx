@@ -1,100 +1,19 @@
 import css from "./Form.module.css";
-import { useState, ChangeEvent } from "react";
 import { Input } from "components/Input/Input";
 import { Button } from "components/Button/Button";
 import { ConfigContext } from "components/ConfigContextProvider/configContext";
-import React from "react";
-
-type FormDataSingle = {
-	title: string;
-	thumb: null | File;
-	salary: string;
-	city: string;
-	stack: string;
-};
-
-type FormDataMultiple = {
-	benefits: number[];
-	categories: number[];
-	contractTypes: number[];
-	seniorities: number[];
-};
-
-type FormData = FormDataSingle & FormDataMultiple;
-
-// type RequestData = {
-// 	title: string;
-// 	duration: number;
-// 	description: string;
-// 	thumb: string;
-// 	company_name: string;
-// 	company_city: string;
-// 	seniority_id: string;
-// 	category_ids: string[];
-// 	benefit_ids: string[];
-// 	contracts: {
-// 		salary_from: string;
-// 		salary_to: string;
-// 		contract_type_id: string;
-// 	}[];
-// };
+import { useForm } from "./useForm";
 
 function Form() {
-	const [formData, setFormData] = useState<FormData>({
-		title: "",
-		thumb: null,
-		salary: "",
-		city: "",
-		stack: "",
-		benefits: [],
-		categories: [],
-		contractTypes: [],
-		seniorities: [],
-	});
-
-	const handleChange = (
-		key: keyof FormData,
-		event: ChangeEvent<HTMLInputElement>
-	) => {
-		const str = event.target.value;
-
-		setFormData(state => ({
-			...state,
-			[key]: str,
-		}));
-	};
-
-	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-		if (event.target.files) {
-			const file = event.target.files[0];
-			setFormData(state => ({
-				...state,
-				thumb: file,
-			}));
-		}
-	};
-
-	function handleMultipleChange(
-		multiplyArg: keyof FormDataMultiple,
-		event: ChangeEvent<HTMLInputElement>
-	) {
-		const tmp = [...formData[multiplyArg]];
-
-		if (tmp.includes(parseInt(event.target.value))) {
-			tmp.splice(tmp.indexOf(parseInt(event.target.value)), 1);
-		} else {
-			tmp.push(parseInt(event.target.value));
-		}
-
-		setFormData(state => ({
-			...state,
-			[multiplyArg]: tmp,
-		}));
-	}
-
-	function handleSubmit() {
-		console.log(formData.title);
-	}
+	const {
+		formData,
+		handleChange,
+		handleFileChange,
+		handleMultipleChange,
+		handleSalaryChange,
+		handleSalaryCheckboxChange,
+		handleSubmit,
+	} = useForm();
 
 	return (
 		<ConfigContext.Consumer>
@@ -129,32 +48,54 @@ function Form() {
 							</div>
 						))}
 						<h3>Categories of Contracts</h3>
-						{config.contractTypes.map(type => (
-							<div className={css.box__cat} key={type.id}>
-								<input
-									type='checkbox'
-									checked={formData.contractTypes.includes(type.id)}
-									id={`type-${type.id}`}
-									onChange={event =>
-										handleMultipleChange("contractTypes", event)
-									}
-									value={type.id}
-								/>
-								<label htmlFor={`benefit-${type.id}`}>{type.name}</label>
-							</div>
-						))}
+
+						{config.contractTypes.map(type => {
+							const contractType = formData.contractTypes.find(
+								({ contractTypeId }) => contractTypeId === type.id
+							);
+
+							return (
+								<div className={css.box__cat} key={type.id}>
+									<input
+										type='checkbox'
+										checked={!!contractType}
+										id={`type-${type.id}`}
+										onChange={handleSalaryCheckboxChange}
+										value={type.id}
+									/>
+									<label htmlFor={`contractTypes-${type.id}`}>
+										{type.name}
+									</label>
+									<Input
+										placeholder='od'
+										value={contractType?.salaryFrom.toString()}
+										onChange={event =>
+											handleSalaryChange(type.id, "salaryFrom", event)
+										}
+									/>
+									<Input
+										placeholder='do'
+										value={contractType?.salaryTo.toString()}
+										onChange={event =>
+											handleSalaryChange(type.id, "salaryTo", event)
+										}
+									/>
+								</div>
+							);
+						})}
 
 						<h3>Categories of seniorities</h3>
 						{config.seniorities.map(seniority => (
 							<div className={css.box__cat} key={seniority.id}>
+								{/* wykorzystac Input komponent */}
 								<input
 									type='checkbox'
-									checked={formData.contractTypes.includes(seniority.id)}
+									checked={formData.seniorities.includes(seniority.id)}
 									id={`seniority-${seniority.id}`}
 									onChange={event => handleMultipleChange("seniorities", event)}
 									value={seniority.id}
 								/>
-								<label htmlFor={`benefit-${seniority.id}`}>
+								<label htmlFor={`seniorities-${seniority.id}`}>
 									{seniority.name}
 								</label>
 							</div>
@@ -166,19 +107,19 @@ function Form() {
 							onChange={event => handleChange("title", event)}
 						/>
 						<Input
-							placeholder='Salary'
-							value={formData.salary}
-							onChange={event => handleChange("salary", event)}
-						/>
-						<Input
 							placeholder='City'
 							value={formData.city}
 							onChange={event => handleChange("city", event)}
 						/>
 						<Input
-							placeholder='Stack'
-							value={formData.city}
-							onChange={event => handleChange("stack", event)}
+							placeholder='Company Name'
+							value={formData.company}
+							onChange={event => handleChange("company", event)}
+						/>
+						<Input
+							placeholder='Duration'
+							value={formData.duration.toString()}
+							onChange={event => handleChange("duration", event)}
 						/>
 						<Input
 							placeholder='Add Logo your firm'
