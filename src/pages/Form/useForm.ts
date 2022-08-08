@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import { Error } from "components/Error/Error";
 
 type ContractTypeSalary = {
 	salaryFrom: number;
@@ -26,7 +27,14 @@ type FormDataMultiple = {
 
 type FormData = FormDataSingle & FormDataMultiple;
 
+enum Loading {
+	Load,
+}
+
 const useForm = () => {
+	const [loading, setLoading] = useState<Loading | null>(null);
+	const [error, setError] = useState(false);
+
 	const [formData, setFormData] = useState<FormData>({
 		title: "",
 		thumb: null,
@@ -78,10 +86,6 @@ const useForm = () => {
 			[multiplyArg]: tmp,
 		}));
 	}
-
-	/*  -1     0        1
-		  [{ id: 5}, {id: 6}]
-	/*/
 
 	function handleSalaryCheckboxChange(event: ChangeEvent<HTMLInputElement>) {
 		const id = parseInt(event.target.value);
@@ -147,21 +151,14 @@ const useForm = () => {
 			},
 		};
 
-		// NOTE: -> async/await
-		// NOTE: obsluga bledow, obsluga komunikatu
-		// NOTE: loading state
-
 		try {
 			const res = await fetch("http://localhost:4000/offers", params);
 			const offer = await res.json();
 		} catch (e) {
+			return error;
 		} finally {
+			setLoading(Loading.Load);
 		}
-
-		// 		.then(res =>
-		// 			res.json()
-		// 				.then(offer => console.log(offer))
-		// 		);
 	}
 	return {
 		formData,

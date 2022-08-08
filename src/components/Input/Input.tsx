@@ -1,6 +1,6 @@
 import css from "./Input.module.css";
 import { Error } from "../Error/Error";
-import { useState, ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 
 type Props = {
 	placeholder: string;
@@ -28,6 +28,8 @@ function Input({ placeholder, type = "text", value, onChange }: Props) {
 	);
 }
 
+// testing-library react
 /* <span className={css.error}>dodaj tekst</span> */
+//  https://www.designcise.com/web/tutorial/whats-the-difference-between-findby-getby-and-queryby-in-react-testing-library
 
 export { Input };

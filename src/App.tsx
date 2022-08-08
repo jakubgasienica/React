@@ -1,11 +1,10 @@
-import React, { useState, useContext, createContext, useEffect } from "react";
+// import React, { useState, useContext, createContext, useEffect } from "react";
 import { Header } from "./components/Header/Header";
 import { Offers } from "./pages/Offers/Offers";
 import { Form } from "./pages/Form/Form";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import css from "./App.module.css";
 import { ConfigContextProvider } from "./components/ConfigContextProvider/ConfigContextProvider";
-import { UsersContext } from "./components/ConfigContextProvider/ConfigContextProvider";
 
 function App() {
 	return (

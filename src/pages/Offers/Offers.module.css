@@ -1,4 +1,4 @@
-.wrapper {
+.offerWrapper {
 	display: flex;
 	flex-direction: row;
 	color: #125973;
@@ -7,10 +7,23 @@
 	justify-content: space-around;
 	align-items: center;
 	height: 100%;
-	border-bottom: 3px solid #125973;
+	width: 90vw;
+
 	padding: 10px;
 }
 
 .img {
 	height: 100px;
+}
+
+.delete {
+	margin-right: 20px;
+	display: flex;
+	align-items: center;
+}
+
+.wrapper {
+	display: flex;
+	border-bottom: 3px solid #125973;
+	justify-content: space-between;
 }

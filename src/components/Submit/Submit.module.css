@@ -1,0 +1,12 @@
+.submit {
+	color: #125973;
+	margin-top: 20px;
+	border: 3px solid #125973;
+	font-size: 40px;
+	border-radius: 10px;
+	width: 250px;
+}
+
+.submit:hover {
+	background-color: #125973c0;
+}

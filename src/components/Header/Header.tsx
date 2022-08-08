@@ -29,8 +29,10 @@ function Header() {
 					<button className={css.filterBoxButton}>lowest salary</button>
 				</div>
 			</div>
-			<Link to='/'>Home</Link>
-			<Link to='form'>Form</Link>
+			<div className={css.link}>
+				<Link to='/'>Home</Link>
+				<Link to='form'>Form</Link>
+			</div>
 		</div>
 	);
 }

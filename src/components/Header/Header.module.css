@@ -25,6 +25,9 @@
 	font-size: large;
 }
 
+.link {
+}
+
 @media screen and (min-width: 768px) {
 	.header {
 		opacity: 0.8;
@@ -56,5 +59,18 @@
 	.filter {
 		display: flex;
 		flex-direction: row;
+	}
+	.link {
+		display: flex;
+		flex-direction: column;
+	}
+	.link a {
+		color: #f8f3c0;
+		text-decoration: none;
+		font-size: 20px;
+	}
+
+	.link a:hover {
+		text-decoration: underline;
 	}
 }

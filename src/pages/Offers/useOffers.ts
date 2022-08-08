@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import logo from "./logo.png";
+import { Error } from "components/ErrorFetch/ErrorFetch";
+import { fetchOffers } from "./fetchOffers";
 
 type ResponseData = {
 	data: {
@@ -19,13 +21,13 @@ type ResponseData = {
 			duration: number;
 			salary: {
 				name: string;
-				salary_from: string;
-				salary_to: string;
+				salary_from: number;
+				salary_to: number;
 			}[];
 			seniority: {
 				id: number;
 				name: string;
-			}[];
+			};
 			title: string;
 			date: string;
 			thumb: string;
@@ -56,7 +58,7 @@ type Offer = {
 	thumb: string;
 };
 
-function mapResponse(data: ResponseData): Offer[] {
+export function mapResponse(data: ResponseData): Offer[] {
 	return data.data.records.map(record => ({
 		id: record.id,
 		date: new Date(record.date),
@@ -81,24 +83,50 @@ function mapResponse(data: ResponseData): Offer[] {
 export const useOffers = () => {
 	const [loading, setLoading] = useState(false);
 	const [offers, setOffers] = useState<Offer[]>([]);
-	const [error, setError] = useState(false);
+	const [error, setError] = useState<Error | null>(null);
 	// const value = useContext(ConfigContext);
 
-	useEffect(() => {
-		setLoading(true);
-		setError(false);
-		fetch("http://localhost:4000/offers?limit=10")
-			.then(response => response.json())
-			.then(data => setOffers(mapResponse(data)))
-			.catch(error => setError(true))
-			.finally(() => {
-				setLoading(false);
+	async function fetchDelete(id: number) {
+		const params = {
+			method: "DELETE",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+		};
+		try {
+			await fetch(`http://localhost:4000/offers/${id}`, params);
+			setOffers(state => {
+				return state.filter(offer => id !== offer.id);
 			});
+		} catch (e) {
+			setError(Error.Delete);
+		} finally {
+		}
+	}
+
+	useEffect(() => {
+		const doFetch = async () => {
+			try {
+				setLoading(true);
+				setError(null);
+				const response = await fetchOffers();
+				const json = await response.json();
+				setOffers(mapResponse(json));
+			} catch {
+				setError(Error.FetchOffers);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		doFetch();
 	}, []);
 
 	return {
 		loading,
 		offers,
 		error,
+		fetchDelete,
 	};
 };

@@ -1,0 +1,57 @@
+{
+	"data": {
+		"records": [
+			{
+				"id": 1,
+				"benefits": [
+					{
+						"id": 1,
+						"name": "Elastyczne godziny pracy"
+					},
+					{
+						"id": 3,
+						"name": "Karta sportowa"
+					},
+					{
+						"id": 5,
+						"name": "Bonus relokacyjny"
+					}
+				],
+				"salary": [
+					{
+						"name": "B2B",
+						"salary_from": 4000,
+						"salary_to": 8000
+					},
+					{
+						"name": "Umowa o pracę",
+						"salary_from": 3500,
+						"salary_to": 6000
+					}
+				],
+				"categories": [
+					{
+						"id": 1,
+						"name": "HTML/CSS"
+					},
+					{
+						"id": 11,
+						"name": "React"
+					}
+				],
+				"seniority": {
+					"id": 1,
+					"name": "Junior"
+				},
+				"title": "Junior Front End Developer",
+				"date": "2022-02-13T23:24:00.372Z",
+				"duration": 8640000,
+				"description": "Szukamy deweloperów do różnych projektów. Zapewniamy liczne benefity oraz pracę w dynamicznym i młodnym zespole.",
+				"thumb": "",
+				"company_name": "Software House",
+				"company_city": "Warszawa"
+			}
+		],
+		"total_count": 100
+	}
+}
