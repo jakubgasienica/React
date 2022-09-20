@@ -153,7 +153,7 @@ const useForm = () => {
 
 		try {
 			const res = await fetch("http://localhost:4000/offers", params);
-			const offer = await res.json();
+			await res.json();
 		} catch (e) {
 			return error;
 		} finally {

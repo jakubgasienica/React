@@ -16,7 +16,6 @@ function Form() {
 		handleSubmit,
 	} = useForm();
 
-	// formik, react-hook-form
 	return (
 		<ConfigContext.Consumer>
 			{config => {
@@ -140,7 +139,6 @@ function Form() {
 								/>
 								<Input
 									placeholder='Add Logo your firm'
-									// value={formData.thumb?.toString() ?? ""}
 									type='file'
 									onChange={handleFileChange}
 								/>

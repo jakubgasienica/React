@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import logo from "./logo.png";
 import { Error } from "components/ErrorFetch/ErrorFetch";
-import { fetchOffers } from "./fetchOffers";
+import { fetchOffers } from "utils/fetchOffers";
+import { Offer } from "utils/type";
+import { FilterContext } from "components/FilterContextProvider/filterContext";
 
 type ResponseData = {
 	data: {
@@ -35,29 +37,6 @@ type ResponseData = {
 	};
 };
 
-type Offer = {
-	id: number;
-	benefits: {
-		id: number;
-		name: string;
-	}[];
-	categories: {
-		id: number;
-		name: string;
-	}[];
-	companyCity: string;
-	companyName: string;
-	description: string;
-	duration: number;
-	salary: {
-		name: string;
-		salary: string;
-	}[];
-	title: string;
-	date: Date;
-	thumb: string;
-};
-
 export function mapResponse(data: ResponseData): Offer[] {
 	return data.data.records.map(record => ({
 		id: record.id,
@@ -84,7 +63,7 @@ export const useOffers = () => {
 	const [loading, setLoading] = useState(false);
 	const [offers, setOffers] = useState<Offer[]>([]);
 	const [error, setError] = useState<Error | null>(null);
-	// const value = useContext(ConfigContext);
+	const { filter } = useContext(FilterContext);
 
 	async function fetchDelete(id: number) {
 		const params = {
@@ -96,9 +75,7 @@ export const useOffers = () => {
 		};
 		try {
 			await fetch(`http://localhost:4000/offers/${id}`, params);
-			setOffers(state => {
-				return state.filter(offer => id !== offer.id);
-			});
+			setOffers(offers.filter((offer: { id: number }) => id !== offer.id));
 		} catch (e) {
 			setError(Error.Delete);
 		} finally {
@@ -110,7 +87,7 @@ export const useOffers = () => {
 			try {
 				setLoading(true);
 				setError(null);
-				const response = await fetchOffers();
+				const response = await fetchOffers(filter);
 				const json = await response.json();
 				setOffers(mapResponse(json));
 			} catch {
@@ -121,7 +98,7 @@ export const useOffers = () => {
 		};
 
 		doFetch();
-	}, []);
+	}, [filter]); // przekuzeje string do szukania
 
 	return {
 		loading,
