@@ -4,6 +4,7 @@ import { Button } from "components/Button/Button";
 import { ConfigContext } from "components/ConfigContextProvider/configContext";
 import { useForm } from "./useForm";
 import { Submit } from "components/Submit/Submit";
+import { InputCheckbox } from "components/InputCheckbox/InputCheckbox";
 
 function Form() {
 	const {
@@ -26,54 +27,42 @@ function Form() {
 							<div className={css.checkboxWrapper}>
 								<h3>Benefits</h3>
 								{config.benefits.map(benefit => (
-									<div className={css.checkboxes} key={benefit.id}>
-										<input
-											type='checkbox'
-											checked={formData.benefits.includes(benefit.id)}
-											id={`benefit-${benefit.id}`}
-											onChange={event =>
-												handleMultipleChange("benefits", event)
-											}
-											value={benefit.id}
-										/>
-										<label htmlFor={`benefit-${benefit.id}`}>
-											{benefit.name}
-										</label>
-									</div>
+									<InputCheckbox
+										checked={formData.benefits.includes(benefit.id)}
+										id={`benefit-${benefit.id}`}
+										key={benefit.id}
+										onChange={event => handleMultipleChange("benefits", event)}
+										value={benefit.id}
+										children={benefit.name}
+										htmlFor={`benefit-${benefit.id}`}></InputCheckbox>
 								))}
 
 								<h3>Categories of stack</h3>
 								{config.categories.map(cat => (
-									<div className={css.checkboxes} key={cat.id}>
-										<input
-											type='checkbox'
-											checked={formData.categories.includes(cat.id)}
-											id={`cat-${cat.id}`}
-											onChange={event =>
-												handleMultipleChange("categories", event)
-											}
-											value={cat.id}
-										/>
-										<label htmlFor={`benefit-${cat.id}`}>{cat.name}</label>
-									</div>
+									<InputCheckbox
+										checked={formData.categories.includes(cat.id)}
+										id={`cat-${cat.id}`}
+										key={cat.id}
+										onChange={event =>
+											handleMultipleChange("categories", event)
+										}
+										value={cat.id}
+										children={cat.name}
+										htmlFor={`benefit-${cat.id}`}></InputCheckbox>
 								))}
 
 								<h3>Categories of seniorities</h3>
 								{config.seniorities.map(seniority => (
-									<div className={css.checkboxes} key={seniority.id}>
-										<input
-											type='checkbox'
-											checked={formData.seniorities.includes(seniority.id)}
-											id={`seniority-${seniority.id}`}
-											onChange={event =>
-												handleMultipleChange("seniorities", event)
-											}
-											value={seniority.id}
-										/>
-										<label htmlFor={`seniorities-${seniority.id}`}>
-											{seniority.name}
-										</label>
-									</div>
+									<InputCheckbox
+										checked={formData.seniorities.includes(seniority.id)}
+										id={`seniority-${seniority.id}`}
+										key={seniority.id}
+										onChange={event =>
+											handleMultipleChange("seniorities", event)
+										}
+										value={seniority.id}
+										htmlFor={`seniorities-${seniority.id}`}
+										children={seniority.name}></InputCheckbox>
 								))}
 							</div>
 							<div className={css.salariesWrpapper}>
@@ -86,16 +75,15 @@ function Form() {
 
 									return (
 										<div className={css.salaryWrapper} key={type.id}>
-											<input
-												type='checkbox'
+											<InputCheckbox
 												checked={!!contractType}
 												id={`type-${type.id}`}
 												onChange={handleSalaryCheckboxChange}
 												value={type.id}
+												htmlFor={`contractTypes-${type.id}`}
+												children={type.name}
 											/>
-											<label htmlFor={`contractTypes-${type.id}`}>
-												{type.name}
-											</label>
+
 											<div className={css.inputSalary}>
 												<Input
 													placeholder='od'

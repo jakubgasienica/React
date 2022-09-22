@@ -4,6 +4,7 @@ import { Error } from "components/ErrorFetch/ErrorFetch";
 import { fetchOffers } from "utils/fetchOffers";
 import { Offer } from "utils/type";
 import { FilterContext } from "components/FilterContextProvider/filterContext";
+import { Link, useNavigate } from "react-router-dom";
 
 type ResponseData = {
 	data: {
@@ -63,7 +64,12 @@ export const useOffers = () => {
 	const [loading, setLoading] = useState(false);
 	const [offers, setOffers] = useState<Offer[]>([]);
 	const [error, setError] = useState<Error | null>(null);
+	const navigate = useNavigate();
 	const { filter } = useContext(FilterContext);
+
+	function goToDescription(id: number) {
+		navigate(`/offer/${id}`);
+	}
 
 	async function fetchDelete(id: number) {
 		const params = {
@@ -98,12 +104,13 @@ export const useOffers = () => {
 		};
 
 		doFetch();
-	}, [filter]); // przekuzeje string do szukania
+	}, [filter]);
 
 	return {
 		loading,
 		offers,
 		error,
 		fetchDelete,
+		goToDescription,
 	};
 };

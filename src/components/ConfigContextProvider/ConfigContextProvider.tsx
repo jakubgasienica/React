@@ -1,11 +1,6 @@
 import React from "react";
 import { useState, useEffect, ReactNode } from "react";
-import {
-	Category,
-	ConfigContext,
-	Config,
-	initialConfig,
-} from "./configContext";
+import { ConfigContext, Config, initialConfig } from "./configContext";
 
 type ResponseData = {
 	benefits: {

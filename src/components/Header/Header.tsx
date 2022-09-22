@@ -1,8 +1,7 @@
 import css from "./Header.module.css";
 import logo from "./logo.png";
-import Select, { Options } from "react-select";
 import { Link } from "react-router-dom";
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext } from "react";
 import { FilterContext } from "components/FilterContextProvider/filterContext";
 
 function Header() {

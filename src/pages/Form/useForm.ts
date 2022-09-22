@@ -1,5 +1,4 @@
 import { ChangeEvent, useState } from "react";
-import { Error } from "components/Error/Error";
 
 type ContractTypeSalary = {
 	salaryFrom: number;

@@ -9,7 +9,7 @@ type Props = {
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-type Type = "password" | "text" | "email" | "file";
+type Type = "password" | "text" | "email" | "file" | "checkbox";
 
 function Input({ placeholder, type = "text", value, onChange }: Props) {
 	return (
@@ -27,9 +27,5 @@ function Input({ placeholder, type = "text", value, onChange }: Props) {
 		</div>
 	);
 }
-
-// testing-library react
-/* <span className={css.error}>dodaj tekst</span> */
-//  https://www.designcise.com/web/tutorial/whats-the-difference-between-findby-getby-and-queryby-in-react-testing-library
 
 export { Input };

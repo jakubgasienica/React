@@ -3,9 +3,10 @@ import logo from "./logo.png";
 import { useOffers } from "./useOffers";
 import { Button } from "components/Button/Button";
 import { ErrorFetch } from "components/ErrorFetch/ErrorFetch";
+import { MouseEvent } from "react";
 
 function Offers() {
-	const { error, loading, offers, fetchDelete } = useOffers();
+	const { error, loading, offers, fetchDelete, goToDescription } = useOffers();
 
 	if (error) {
 		return <ErrorFetch type={error} />;
@@ -18,7 +19,13 @@ function Offers() {
 	return (
 		<>
 			{offers.map(offer => (
-				<div className={css.wrapper} key={offer.id}>
+				<div
+					className={css.wrapper}
+					key={offer.id}
+					onClick={() => {
+						console.log("gotodescription");
+						goToDescription(offer.id);
+					}}>
 					<div className={css.offerWrapper} key={offer.id}>
 						<div className={css.logo}>
 							<img
@@ -50,9 +57,10 @@ function Offers() {
 					</div>
 					<div className={css.delete}>
 						<Button
-							onClick={() => {
+							onClick={(event: MouseEvent<HTMLButtonElement>) => {
+								event.stopPropagation();
 								console.log("delete");
-								fetchDelete(offer.id);
+								// fetchDelete(offer.id);
 							}}>
 							X
 						</Button>
