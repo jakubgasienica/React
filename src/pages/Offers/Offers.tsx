@@ -4,6 +4,7 @@ import { useOffers } from "./useOffers";
 import { Button } from "components/Button/Button";
 import { ErrorFetch } from "components/ErrorFetch/ErrorFetch";
 import { MouseEvent } from "react";
+import { isFunctionExpression } from "typescript";
 
 function Offers() {
 	const { error, loading, offers, fetchDelete, goToDescription } = useOffers();
@@ -15,7 +16,47 @@ function Offers() {
 	if (loading) {
 		return <div>Wczytywanie...</div>;
 	}
-
+	function getDatePublished(date: Date) {
+		const months = [
+			"January",
+			"February",
+			"March",
+			"April",
+			"May",
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"November",
+			"December",
+		];
+		let month = months[date.getMonth()];
+		return `${date.getDate()} ${month}`;
+	}
+	function getDateActive(date: Date) {
+		const months = [
+			"January",
+			"February",
+			"March",
+			"April",
+			"May",
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"November",
+			"December",
+		];
+		let month: string;
+		if (date.getMonth() === months.length) {
+			month = months[0];
+		} else {
+			month = months[date.getMonth() + 1];
+		}
+		return `${date.getDate()} ${month}`;
+	}
 	return (
 		<>
 			{offers.map(offer => (
@@ -23,11 +64,12 @@ function Offers() {
 					className={css.wrapper}
 					key={offer.id}
 					onClick={() => {
-						console.log("gotodescription");
-						goToDescription(offer.id);
+						// goToDescription(offer.id);
+						console.log(offer.date.getDay());
 					}}>
 					<div className={css.offerWrapper} key={offer.id}>
-						<div className={css.logo}>
+						<div className={css.topOfferBox}>
+							<h3 className={css.title}>{offer.title}</h3>
 							<img
 								className={css.img}
 								src={offer.thumb}
@@ -37,21 +79,36 @@ function Offers() {
 								alt='logo'
 							/>
 						</div>
-						<h3 className={css.title}>{offer.title}</h3>
-						<div className={css.city}>
-							<p className={css.paragraph}>{offer.companyCity}</p>
+						<div className={css.middleOfferBox}>
+							<div className={css.properties}>
+								<i className='fa-solid fa-location-dot'></i>
+								<p className={css.paragraph}>{offer.companyCity}</p>
+							</div>
+							<div className={css.properties}>
+								<i className='fa-solid fa-laptop-code'></i>
+								<p className={css.paragraph}>
+									{offer.categories.map(cat => cat.name).join(", ")}
+								</p>
+							</div>
+							<div className={css.properties}>
+								<i className='fa-solid fa-dollar-sign'></i>
+								<p className={css.paragraph}>
+									{offer.salary.map(s => s.salary)}
+								</p>
+							</div>
+							<div className={css.properties}>
+								<i className='fa-solid fa-plus'></i>
+								<p className={css.paragraph}>
+									{offer.benefits.map(benefit => benefit.name).join(", ")}
+								</p>
+							</div>
 						</div>
-						<div className={css.stack}>
-							<p className={css.paragraph}>
-								{offer.categories.map(cat => cat.name).join(", ")}
+						<div className={css.bottomOfferBox}>
+							<p className={css.dateText}>
+								Published: {getDatePublished(offer.date)}
 							</p>
-						</div>
-						<div className={css.salary}>
-							<p className={css.paragraph}>{offer.salary.map(s => s.salary)}</p>
-						</div>
-						<div className={css.benefits}>
-							<p className={css.paragraph}>
-								{offer.benefits.map(benefit => benefit.name).join(", ")}
+							<p className={css.dateText}>
+								Active: {getDateActive(offer.date)}
 							</p>
 						</div>
 					</div>
@@ -59,7 +116,7 @@ function Offers() {
 						<Button
 							onClick={(event: MouseEvent<HTMLButtonElement>) => {
 								event.stopPropagation();
-								console.log("delete");
+
 								// fetchDelete(offer.id);
 							}}>
 							X

@@ -2,17 +2,15 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	background: #125973;
+	background: #fcfcfc;
 	width: 100vw;
-	height: 80px;
-	/* z-index: 1; */
+	height: 70px;
 	position: fixed;
-	bottom: 0;
-	border-radius: 15px;
+	top: 0;
 }
 
 .logo img {
-	height: 90px;
+	width: 40px;
 }
 
 .filterBoxSelect {
@@ -20,12 +18,36 @@
 }
 
 .input {
-	background-color: #12597348;
+	background-color: #f0f0f0;
 	border-radius: 10px;
 	font-size: large;
+	box-sizing: border-box;
+	border: none;
+	width: 200px;
+	height: 40px;
 }
 
 .link {
+}
+
+.searchBox {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	position: relative;
+}
+
+.searchIcon {
+	position: absolute;
+	left: 10px;
+}
+
+.filterButton {
+	border: none;
+	height: 40px;
+	background-color: #f28050;
+	border-radius: 10px;
+	padding: 5px 10px;
 }
 
 @media screen and (min-width: 768px) {
@@ -40,6 +62,9 @@
 	}
 	.header:hover {
 		opacity: 1;
+		-webkit-box-shadow: 0px 0px 14px 0px rgba(66, 68, 90, 1);
+		-moz-box-shadow: 0px 0px 14px 0px rgba(66, 68, 90, 1);
+		box-shadow: 0px 0px 14px 0px rgba(66, 68, 90, 1);
 	}
 
 	.header > *:hover {
@@ -55,19 +80,17 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		position: relative;
 	}
+
+	.searchIcon {
+		position: absolute;
+		width: 400px;
+	}
+
 	.filter {
 		display: flex;
 		flex-direction: row;
-	}
-	.link {
-		display: flex;
-		flex-direction: column;
-	}
-	.link a {
-		color: #f8f3c0;
-		text-decoration: none;
-		font-size: 20px;
 	}
 
 	.link a:hover {

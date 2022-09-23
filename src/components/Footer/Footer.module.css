@@ -1,0 +1,15 @@
+.footer {
+	height: 200px;
+	width: 100vw;
+	background-color: #f0f0f0;
+}
+
+.link {
+	display: flex;
+	flex-direction: column;
+}
+.link a {
+	color: #000000;
+	text-decoration: none;
+	font-size: 20px;
+}

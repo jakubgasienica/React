@@ -1,4 +1,3 @@
-// import React, { useState, useContext, createContext, useEffect } from "react";
 import { Header } from "./components/Header/Header";
 import { Offers } from "./pages/Offers/Offers";
 import { Form } from "./pages/Form/Form";
@@ -7,6 +6,7 @@ import css from "./App.module.css";
 import { ConfigContextProvider } from "./components/ConfigContextProvider/ConfigContextProvider";
 import { FilterProvider } from "./components/FilterContextProvider/FilterContextProvider";
 import { Description } from "./pages/Description/Description";
+import { Footer } from "./components/Footer/Footer";
 
 function App() {
 	return (
@@ -21,6 +21,7 @@ function App() {
 							<Route path='offer/:id' element={<Description />} />
 						</Routes>
 					</div>
+					<Footer />
 				</ConfigContextProvider>
 			</FilterProvider>
 		</BrowserRouter>

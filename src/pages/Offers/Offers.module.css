@@ -1,19 +1,53 @@
 .offerWrapper {
 	display: flex;
-	flex-direction: row;
-	color: #125973;
-	background-color: #f8f3c0;
+	flex-direction: column;
+	color: #1f1e1e;
+	background-color: #f0f0f0;
 	flex-wrap: wrap;
 	justify-content: space-around;
 	align-items: center;
 	height: 100%;
 	width: 90vw;
-
 	padding: 10px;
+	border-radius: 20px;
 }
 
+.topOfferBox {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	border-bottom: #f28050 2px solid;
+}
+.middleOfferBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 100%;
+	border-bottom: #f28050 2px solid;
+}
+.bottomOfferBox {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.bottomOfferBox * {
+	font-size: small;
+}
 .img {
-	height: 100px;
+	height: 35px;
+}
+
+.properties {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+}
+.paragraph {
 }
 
 .delete {
@@ -24,6 +58,5 @@
 
 .wrapper {
 	display: flex;
-	border-bottom: 3px solid #125973;
-	justify-content: space-between;
+	flex-direction: column;
 }
