@@ -1,34 +1,42 @@
 import css from "./Header.module.css";
 import logo from "./logo.png";
-import { ChangeEvent, useContext } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { FilterContext } from "components/FilterContextProvider/filterContext";
+import { Search } from "./Search/Search";
+import { FilterDesktop } from "./FilterDesktop/FilterDesktop";
+import { FilterMobile } from "./FilterMobile/FilterMobile";
 
 function Header() {
-	const { setFilter } = useContext(FilterContext);
-
-	function searchOffer(e: ChangeEvent<HTMLInputElement>) {
-		setFilter(e.target.value);
-	}
+	const [activeFilter, setActiveFilter] = useState<number>(0);
 
 	return (
-		<div className={css.header}>
+		<header className={css.header}>
 			<div className={css.logo}>
 				<img src={logo} alt='work with it' />
 			</div>
-			<div className={css.searchBox}>
-				<input className={css.input} onChange={e => searchOffer(e)}></input>
-				<div className={css.searchIcon}>
-					<i className='fa-solid fa-magnifying-glass'></i>
-				</div>
+			<Search />
+			<div className={css.filterBoxButtonsDesktop}>
+				{/* TODO: change name to sort */}
+				<FilterDesktop
+					text='lowest'
+					active={activeFilter === 0}
+					onClick={() => setActiveFilter(0)}
+				/>
+				<FilterDesktop
+					text='high salary'
+					active={activeFilter === 1}
+					onClick={() => setActiveFilter(1)}
+				/>
+				<FilterDesktop
+					text='low salary'
+					active={activeFilter === 2}
+					onClick={() => setActiveFilter(2)}
+				/>
 			</div>
-			<div className={css.filter}>
-				<div className={css.filterBoxButtons}>
-					<button className={css.filterButton}>latest</button>
-					{/* <button className={css.filterBoxButton}>highest salary</button>
-					<button className={css.filterBoxButton}>lowest salary</button> */}
-				</div>
+			<div className={css.filterBoxButtonsMobile}>
+				<FilterMobile />
 			</div>
-		</div>
+		</header>
 	);
 }
 

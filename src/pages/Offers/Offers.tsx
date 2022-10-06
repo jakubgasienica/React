@@ -3,11 +3,12 @@ import logo from "./logo.png";
 import { useOffers } from "./useOffers";
 import { Button } from "components/Button/Button";
 import { ErrorFetch } from "components/ErrorFetch/ErrorFetch";
-import { MouseEvent } from "react";
+import { MouseEvent, useState } from "react";
 import { isFunctionExpression } from "typescript";
 
 function Offers() {
 	const { error, loading, offers, fetchDelete, goToDescription } = useOffers();
+	const [extraFunc, setExtraFunc] = useState(false);
 
 	if (error) {
 		return <ErrorFetch type={error} />;
@@ -17,6 +18,7 @@ function Offers() {
 		return <div>Wczytywanie...</div>;
 	}
 	function getDatePublished(date: Date) {
+		// przenieśc do utils
 		const months = [
 			"January",
 			"February",
@@ -58,16 +60,22 @@ function Offers() {
 		return `${date.getDate()} ${month}`;
 	}
 	return (
-		<>
+		<div className={css.offers}>
 			{offers.map(offer => (
 				<div
+					//  offer
 					className={css.wrapper}
 					key={offer.id}
 					onClick={() => {
 						// goToDescription(offer.id);
 						console.log(offer.date.getDay());
+						setExtraFunc(!extraFunc)!;
 					}}>
-					<div className={css.offerWrapper} key={offer.id}>
+					<div
+						className={
+							extraFunc ? css.offerWrapperDisplayExtras : css.offerWrapper
+						}
+						key={offer.id}>
 						<div className={css.topOfferBox}>
 							<h3 className={css.title}>{offer.title}</h3>
 							<img
@@ -93,6 +101,7 @@ function Offers() {
 							<div className={css.properties}>
 								<i className='fa-solid fa-dollar-sign'></i>
 								<p className={css.paragraph}>
+									{offer.salary.map(s => s.name)}:
 									{offer.salary.map(s => s.salary)}
 								</p>
 							</div>
@@ -112,19 +121,24 @@ function Offers() {
 							</p>
 						</div>
 					</div>
-					<div className={css.delete}>
-						<Button
-							onClick={(event: MouseEvent<HTMLButtonElement>) => {
-								event.stopPropagation();
-
-								// fetchDelete(offer.id);
-							}}>
-							X
-						</Button>
+					<div
+						className={
+							extraFunc ? css.popUpExtraFunc : css.popUpExtraFuncNoDisplay
+						}>
+						<div className={css.delete}>
+							<Button
+								onClick={(event: MouseEvent<HTMLButtonElement>) => {
+									event.stopPropagation();
+									// fetchDelete(offer.id);
+								}}>
+								Delete this offer, if you are not interested
+							</Button>
+						</div>
+						<div className={css.buttonDescription}>Go to description</div>
 					</div>
 				</div>
 			))}
-		</>
+		</div>
 	);
 }
 

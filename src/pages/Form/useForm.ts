@@ -128,6 +128,8 @@ const useForm = () => {
 	}
 
 	async function handleSubmit() {
+		// event.preventDefault();
+
 		const params = {
 			method: "POST",
 			body: JSON.stringify({

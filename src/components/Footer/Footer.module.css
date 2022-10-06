@@ -1,15 +1,24 @@
 .footer {
 	height: 200px;
 	width: 100vw;
-	background-color: #f0f0f0;
+	background-color: #dbdbdb;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
 }
 
 .link {
 	display: flex;
 	flex-direction: column;
+	gap: 30px;
 }
 .link a {
 	color: #000000;
-	text-decoration: none;
+	text-decoration-color: #f28050;
 	font-size: 20px;
+}
+
+.logo {
+	height: 100px;
 }

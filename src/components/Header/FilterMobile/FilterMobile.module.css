@@ -1,0 +1,28 @@
+.filterSelectBox {
+	position: relative;
+}
+
+.filter {
+	height: 40px;
+	border: none;
+	background-color: #f28050;
+	text-align: center;
+	border-radius: 10px;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.popUp {
+	display: flex;
+	position: absolute;
+	flex-direction: column;
+	border-radius: 10px;
+}
+
+.button {
+	background-color: #f28050;
+	height: 40px;
+	border: none;
+}

@@ -1,6 +1,6 @@
 .header {
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-evenly;
 	align-items: center;
 	background: #fcfcfc;
 	width: 100vw;
@@ -17,29 +17,20 @@
 	display: none;
 }
 
+.filterBoxButtonsDesktop {
+	display: none;
+}
+
+.filterBoxButtonsMobile {
+}
 .input {
 	background-color: #f0f0f0;
 	border-radius: 10px;
 	font-size: large;
 	box-sizing: border-box;
 	border: none;
-	width: 200px;
+	max-width: 200px;
 	height: 40px;
-}
-
-.link {
-}
-
-.searchBox {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	position: relative;
-}
-
-.searchIcon {
-	position: absolute;
-	left: 10px;
 }
 
 .filterButton {
@@ -48,6 +39,9 @@
 	background-color: #f28050;
 	border-radius: 10px;
 	padding: 5px 10px;
+}
+
+.filterBoxButtonsMobile {
 }
 
 @media screen and (min-width: 768px) {
@@ -70,22 +64,15 @@
 	.header > *:hover {
 		cursor: pointer;
 	}
-	.filterBoxButtons {
+	.filterBoxButtonsDesktop {
+		display: flex;
+		gap: 20px;
+	}
+	.filterBoxButtonsMobile {
 		display: none;
 	}
 	.filterBoxSelect {
 		display: block;
-	}
-	.searchBox {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		position: relative;
-	}
-
-	.searchIcon {
-		position: absolute;
-		width: 400px;
 	}
 
 	.filter {

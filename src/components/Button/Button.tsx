@@ -4,6 +4,7 @@ import css from "./Button.module.css";
 type Props = {
 	children: string;
 	onClick: (event: MouseEvent<HTMLButtonElement>) => void;
+	// classNameButton?: React.HTMLAttributes<T>;className?: string | undefined
 };
 
 function Button({ children, onClick }: Props) {

@@ -17,7 +17,7 @@ type Offer = {
 		salary: string;
 	}[];
 	title: string;
-	date: Date;
+	date: Date; // new Date(date.getTime() + duration)
 	thumb: string;
 };
 

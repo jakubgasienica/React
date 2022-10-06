@@ -7,10 +7,7 @@ body {
 }
 
 .box {
-	margin-top: 70px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	margin: 70px 20px;
 }
 
 @media screen and (min-width: 768px) {
