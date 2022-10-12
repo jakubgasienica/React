@@ -1,9 +1,9 @@
 import { useState } from "react";
-import css from "./FilterMobile.module.css";
+import css from "./SortMobile.module.css";
 
 type Filter = "lowest" | "high salary" | "low salary";
 
-function FilterMobile() {
+function SortMobile() {
 	const [filter, setFilter] = useState<Filter>("lowest");
 	const [popUp, setPopUp] = useState(false);
 
@@ -44,4 +44,4 @@ function FilterMobile() {
 	);
 }
 
-export { FilterMobile };
+export { SortMobile };

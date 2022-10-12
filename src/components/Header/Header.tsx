@@ -1,13 +1,21 @@
 import css from "./Header.module.css";
 import logo from "./logo.png";
-import { ChangeEvent, useContext, useState } from "react";
-import { FilterContext } from "components/FilterContextProvider/filterContext";
+import { useContext, useState } from "react";
 import { Search } from "./Search/Search";
-import { FilterDesktop } from "./FilterDesktop/FilterDesktop";
-import { FilterMobile } from "./FilterMobile/FilterMobile";
+import { SortDesktop } from "./SortDesktop/SortDesktop";
+import { SortMobile } from "./SortMobile/SortMobile";
+import {
+	SortContext,
+	OrderBy,
+} from "components/SortContextProvider/SortContext";
 
 function Header() {
-	const [activeFilter, setActiveFilter] = useState<number>(0);
+	const [activeSort, setActiveSort] = useState<number>(0);
+	const { setSort, sort } = useContext(SortContext);
+	// TODO: change name of sort -sorting method  , orderBy na diresction
+	async function handleSortChange(orderBy: OrderBy) {
+		setSort(orderBy);
+	}
 
 	return (
 		<header className={css.header}>
@@ -15,26 +23,31 @@ function Header() {
 				<img src={logo} alt='work with it' />
 			</div>
 			<Search />
-			<div className={css.filterBoxButtonsDesktop}>
-				{/* TODO: change name to sort */}
-				<FilterDesktop
-					text='lowest'
-					active={activeFilter === 0}
-					onClick={() => setActiveFilter(0)}
+			<div className={css.sortContainerDesktop}>
+				<SortDesktop
+					text='latest'
+					active={activeSort === 0}
+					onClick={() => {
+						setActiveSort(0);
+						handleSortChange("asc");
+					}}
 				/>
-				<FilterDesktop
+				<SortDesktop
 					text='high salary'
-					active={activeFilter === 1}
-					onClick={() => setActiveFilter(1)}
+					active={activeSort === 1}
+					onClick={() => {
+						setActiveSort(1);
+						handleSortChange("desc");
+					}}
 				/>
-				<FilterDesktop
+				<SortDesktop
 					text='low salary'
-					active={activeFilter === 2}
-					onClick={() => setActiveFilter(2)}
+					active={activeSort === 2}
+					onClick={() => setActiveSort(2)}
 				/>
 			</div>
-			<div className={css.filterBoxButtonsMobile}>
-				<FilterMobile />
+			<div className={css.sortContainerMobile}>
+				<SortMobile></SortMobile>
 			</div>
 		</header>
 	);

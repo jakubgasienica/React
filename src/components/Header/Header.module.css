@@ -17,12 +17,10 @@
 	display: none;
 }
 
-.filterBoxButtonsDesktop {
+.sortContainerDesktop {
 	display: none;
 }
 
-.filterBoxButtonsMobile {
-}
 .input {
 	background-color: #f0f0f0;
 	border-radius: 10px;
@@ -31,17 +29,6 @@
 	border: none;
 	max-width: 200px;
 	height: 40px;
-}
-
-.filterButton {
-	border: none;
-	height: 40px;
-	background-color: #f28050;
-	border-radius: 10px;
-	padding: 5px 10px;
-}
-
-.filterBoxButtonsMobile {
 }
 
 @media screen and (min-width: 768px) {
@@ -64,20 +51,12 @@
 	.header > *:hover {
 		cursor: pointer;
 	}
-	.filterBoxButtonsDesktop {
+	.sortContainerDesktop {
 		display: flex;
 		gap: 20px;
 	}
-	.filterBoxButtonsMobile {
+	.sortContainerMobile {
 		display: none;
-	}
-	.filterBoxSelect {
-		display: block;
-	}
-
-	.filter {
-		display: flex;
-		flex-direction: row;
 	}
 
 	.link a:hover {

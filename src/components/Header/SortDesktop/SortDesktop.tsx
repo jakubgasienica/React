@@ -1,20 +1,20 @@
 import { useState } from "react";
-import css from "./FilterDesktop.module.css";
+import css from "./SortDesktop.module.css";
 
 type Props = {
 	text: Text;
 	active: boolean;
-	onClick: () => void;
+	onClick: () => void | Promise<void>;
 };
 
-type Text = "lowest" | "high salary" | "low salary";
+type Text = "latest" | "high salary" | "low salary";
 
 type Filter = {
 	text: Text;
 	check: boolean;
 };
 
-function FilterDesktop({ text, active, onClick }: Props) {
+function SortDesktop({ text, active, onClick }: Props) {
 	return (
 		<div>
 			<button className={active ? css.active : css.button} onClick={onClick}>
@@ -24,4 +24,4 @@ function FilterDesktop({ text, active, onClick }: Props) {
 	);
 }
 
-export { FilterDesktop };
+export { SortDesktop };

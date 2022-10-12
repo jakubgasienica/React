@@ -4,7 +4,9 @@ import { Error } from "components/ErrorFetch/ErrorFetch";
 import { fetchOffers } from "utils/fetchOffers";
 import { Offer } from "utils/type";
 import { FilterContext } from "components/FilterContextProvider/filterContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { SortContext } from "components/SortContextProvider/SortContext";
+import { fetchSort } from "utils/fetchSort";
 
 type ResponseData = {
 	data: {
@@ -66,6 +68,7 @@ export const useOffers = () => {
 	const [error, setError] = useState<Error | null>(null);
 	const navigate = useNavigate();
 	const { filter } = useContext(FilterContext);
+	const { sort } = useContext(SortContext);
 
 	function goToDescription(id: number) {
 		navigate(`/offer/${id}`);
@@ -96,6 +99,7 @@ export const useOffers = () => {
 				const response = await fetchOffers(filter);
 				const json = await response.json();
 				setOffers(mapResponse(json));
+				// setOffers(mapResponse(jsonFilter));
 			} catch {
 				setError(Error.FetchOffers);
 			} finally {
@@ -104,7 +108,7 @@ export const useOffers = () => {
 		};
 
 		doFetch();
-	}, [filter]);
+	}, [filter, sort]);
 
 	return {
 		loading,

@@ -35,7 +35,16 @@
 		"extends": [
 			"react-app",
 			"react-app/jest"
-		]
+		],
+		"rules": {
+			"react/self-closing-comp": [
+				"warn",
+				{
+					"component": true,
+					"html": true
+				}
+			]
+		}
 	},
 	"browserslist": {
 		"production": [

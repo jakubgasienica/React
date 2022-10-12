@@ -102,6 +102,8 @@ function Offers() {
 								<i className='fa-solid fa-dollar-sign'></i>
 								<p className={css.paragraph}>
 									{offer.salary.map(s => s.name)}:
+								</p>
+								<p className={css.paragraph}>
 									{offer.salary.map(s => s.salary)}
 								</p>
 							</div>

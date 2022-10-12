@@ -13,7 +13,11 @@ export function FilterProvider({ children }: Props) {
 	};
 
 	return (
-		<FilterContext.Provider value={{ filter, setFilter: handleFilterChange }}>
+		<FilterContext.Provider
+			value={{
+				filter,
+				setFilter: handleFilterChange,
+			}}>
 			{children}
 		</FilterContext.Provider>
 	);
