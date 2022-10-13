@@ -132,7 +132,8 @@ function Offers() {
 								onClick={(event: MouseEvent<HTMLButtonElement>) => {
 									event.stopPropagation();
 									// fetchDelete(offer.id);
-								}}>
+								}}
+								className='offer'>
 								Delete this offer, if you are not interested
 							</Button>
 						</div>

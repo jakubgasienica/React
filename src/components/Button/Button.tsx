@@ -1,15 +1,22 @@
 import { MouseEvent } from "react";
 import css from "./Button.module.css";
+import cn from "classnames";
 
 type Props = {
 	children: string;
 	onClick: (event: MouseEvent<HTMLButtonElement>) => void;
-	// classNameButton?: React.HTMLAttributes<T>;className?: string | undefined
+	className: TypeBtn;
 };
 
-function Button({ children, onClick }: Props) {
+type TypeBtn = "form" | "offer";
+
+function Button({ children, onClick, className }: Props) {
+	const classNames = cn({
+		[css.form]: className === "form",
+		[css.offer]: className === "offer",
+	});
 	return (
-		<button onClick={onClick} className={css.button}>
+		<button onClick={onClick} className={classNames}>
 			{children}
 		</button>
 	);

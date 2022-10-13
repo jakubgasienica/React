@@ -15,6 +15,7 @@ type FormDataSingle = {
 	city: string;
 	duration: number;
 	company: string;
+	description: string;
 };
 
 type FormDataMultiple = {
@@ -44,6 +45,7 @@ const useForm = () => {
 		categories: [],
 		contractTypes: [],
 		seniorities: [],
+		description: "",
 	});
 
 	const handleChange = (
