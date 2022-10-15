@@ -1,24 +1,31 @@
 import { useState } from "react";
 import css from "./SortDesktop.module.css";
+import { Direction } from "components/SortContextProvider/SortContext";
 
 type Props = {
-	text: Text;
-	active: boolean;
-	onClick: () => void | Promise<void>;
+	onClick: (direction: Direction) => void;
 };
 
-type Text = "latest" | "high salary" | "low salary";
+function SortDesktop({ onClick }: Props) {
+	const [activeSort, setActiveSort] = useState<number>(0);
 
-type Filter = {
-	text: Text;
-	check: boolean;
-};
-
-function SortDesktop({ text, active, onClick }: Props) {
 	return (
 		<div>
-			<button className={active ? css.active : css.button} onClick={onClick}>
-				{text}
+			<button
+				className={activeSort ? css.active : css.button}
+				onClick={() => {
+					onClick("desc");
+					setActiveSort(0);
+				}}>
+				latest
+			</button>
+			<button
+				className={activeSort ? css.active : css.button}
+				onClick={() => {
+					onClick("asc");
+					setActiveSort(1);
+				}}>
+				earliest
 			</button>
 		</div>
 	);

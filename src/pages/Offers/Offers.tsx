@@ -133,7 +133,7 @@ function Offers() {
 									event.stopPropagation();
 									// fetchDelete(offer.id);
 								}}
-								className='offer'>
+								type='offer'>
 								Delete this offer, if you are not interested
 							</Button>
 						</div>

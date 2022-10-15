@@ -1,42 +1,27 @@
 import css from "./Form.module.css";
 import { ConfigContext } from "components/ConfigContextProvider/configContext";
 import { useForm } from "./useForm";
-import { Submit } from "components/Submit/Submit";
 import { FormInputs } from "./FormInputs";
 import { FormCheckboxes } from "./FormCheckboxes";
 import { Button } from "components/Button/Button";
 import { useState } from "react";
 
+enum Steps {
+	Inputs = 1,
+	Checkboxes = 2,
+}
+
 function Form() {
-	const [step, setStep] = useState(1);
-	const {
-		formData,
-		handleChange,
-		handleFileChange,
-		handleMultipleChange,
-		handleSalaryChange,
-		handleSalaryCheckboxChange,
-		handleSubmit,
-	} = useForm();
+	const [step, setStep] = useState(Steps.Inputs);
+	const { handleSubmit, formData, handleChange, handleFileChange } = useForm();
 
-	enum Step {
-		Inputs = 1,
-		Checkboxes = 2,
-	}
-	function handleBtn(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-		e.preventDefault();
-		step === 1 ? setStep(2) : setStep(1);
-	}
-	// const [step, setStep] = useStep(Step.Part1)
-
-	/*
-    if (step === 1) {
-		return <FormPartOne onSubmit={() => setStep(2)} />
+	function handleNext(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+		setStep(Steps.Checkboxes);
 	}
 
-	return <FormPartTwo onSubmit={handleSubmit} />
-
-	*/
+	function handleBack(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+		setStep(Steps.Inputs);
+	}
 
 	return (
 		<ConfigContext.Consumer>
@@ -44,21 +29,37 @@ function Form() {
 				return (
 					<>
 						<form className={css.wrapper}>
-							{step === 1 && <FormInputs />}
-							{step === 1 && (
-								<Button onClick={event => handleBtn(event)} className='form'>
-									{"Next Step >"}
-								</Button>
+							{step === Steps.Inputs && (
+								<FormInputs
+									formData={formData}
+									onFileChange={handleFileChange}
+									onChange={handleChange}
+								/>
 							)}
-							{step === 2 && <FormCheckboxes />}
-							{step === 2 && (
-								<Button onClick={handleBtn} className='form'>
-									{"< Back"}
-								</Button>
-							)}
-							{step === 2 && (
-								<Submit onClick={handleSubmit}>Accept All!</Submit>
-							)}
+
+							<div className={css.buttonWrapper}>
+								{step === Steps.Inputs && (
+									// TODO wruć buutona do forminput
+									<Button onClick={handleNext} type='form'>
+										{"Next Step >"}
+									</Button>
+								)}
+							</div>
+
+							{step === Steps.Checkboxes && <FormCheckboxes />}
+
+							<div className={css.buttonWrapper}>
+								{step === Steps.Checkboxes && (
+									<Button onClick={handleBack} type='form'>
+										{"< Back"}
+									</Button>
+								)}
+								{step === Steps.Checkboxes && (
+									<Button onClick={handleSubmit} type='submit'>
+										Accept All!
+									</Button>
+								)}
+							</div>
 						</form>
 					</>
 				);

@@ -1,4 +1,4 @@
-export const fetchOffers = (filter: string) => {
+export const fetchOffers = (filter: string, sort: string) => {
 	// URLSearchParams
 
 	/*
@@ -10,5 +10,7 @@ export const fetchOffers = (filter: string) => {
 
 	?${urlSearchParams.toString()}
 	*/
-	return fetch(`http://localhost:4000/offers?limit=10&search=${filter}`);
+	return fetch(
+		`http://localhost:4000/offers?limit=10&search=${filter}&sort_direction=${sort}`
+	);
 };

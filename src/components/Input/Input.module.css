@@ -1,9 +1,28 @@
 .input {
-	width: 200px;
+	width: 90%;
 	height: 30px;
+	background-color: #dbdbdb;
+	border: none;
+	border-radius: 10px;
 }
 
-.wrapInput {
+.wrapper {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: row;
+}
+
+.wrapperLeft {
 	display: flex;
 	flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+	.input {
+		width: 400px;
+		height: 30px;
+		background-color: #dbdbdb;
+		border: none;
+		border-radius: 10px;
+	}
 }

@@ -40,6 +40,7 @@ const useForm = () => {
 		thumb: null,
 		city: "",
 		duration: 0,
+		//  wartośc deafult 0 -  czy moge zmienic na coś innego zeby nie było erroru
 		company: "",
 		benefits: [],
 		categories: [],
@@ -130,8 +131,6 @@ const useForm = () => {
 	}
 
 	async function handleSubmit() {
-		// event.preventDefault();
-
 		const params = {
 			method: "POST",
 			body: JSON.stringify({

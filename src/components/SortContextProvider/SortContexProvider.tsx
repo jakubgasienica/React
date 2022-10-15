@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { SortContext, OrderBy } from "./SortContext";
+import { SortContext, Direction } from "./SortContext";
 
 type Props = {
 	children: ReactNode;
@@ -8,15 +8,15 @@ type Props = {
 export function SortProvider({ children }: Props) {
 	const [sort, setSort] = useState("asc");
 
-	const handleSortChange = (orderBy: OrderBy) => {
-		setSort(orderBy);
+	const handleSortChange = (direction: Direction) => {
+		setSort(direction);
 	};
 
 	return (
 		<SortContext.Provider
 			value={{
 				sort,
-				setSort: handleSortChange,
+				setSortingMethod: handleSortChange,
 			}}>
 			{children}
 		</SortContext.Provider>

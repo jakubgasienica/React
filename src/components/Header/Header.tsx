@@ -6,15 +6,15 @@ import { SortDesktop } from "./SortDesktop/SortDesktop";
 import { SortMobile } from "./SortMobile/SortMobile";
 import {
 	SortContext,
-	OrderBy,
+	Direction,
 } from "components/SortContextProvider/SortContext";
 
 function Header() {
-	const [activeSort, setActiveSort] = useState<number>(0);
-	const { setSort, sort } = useContext(SortContext);
-	// TODO: change name of sort -sorting method  , orderBy na diresction
-	async function handleSortChange(orderBy: OrderBy) {
-		setSort(orderBy);
+	const { setSortingMethod, sort } = useContext(SortContext);
+
+	function handleSortChange(direction: Direction) {
+		setSortingMethod(direction);
+		console.log("change sort");
 	}
 
 	return (
@@ -24,30 +24,10 @@ function Header() {
 			</div>
 			<Search />
 			<div className={css.sortContainerDesktop}>
-				<SortDesktop
-					text='latest'
-					active={activeSort === 0}
-					onClick={() => {
-						setActiveSort(0);
-						handleSortChange("asc");
-					}}
-				/>
-				<SortDesktop
-					text='high salary'
-					active={activeSort === 1}
-					onClick={() => {
-						setActiveSort(1);
-						handleSortChange("desc");
-					}}
-				/>
-				<SortDesktop
-					text='low salary'
-					active={activeSort === 2}
-					onClick={() => setActiveSort(2)}
-				/>
+				<SortDesktop onClick={handleSortChange} />
 			</div>
 			<div className={css.sortContainerMobile}>
-				<SortMobile></SortMobile>
+				<SortMobile onClick={handleSortChange} />
 			</div>
 		</header>
 	);

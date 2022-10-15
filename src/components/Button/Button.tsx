@@ -5,15 +5,16 @@ import cn from "classnames";
 type Props = {
 	children: string;
 	onClick: (event: MouseEvent<HTMLButtonElement>) => void;
-	className: TypeBtn;
+	type: TypeBtn;
 };
 
-type TypeBtn = "form" | "offer";
-
-function Button({ children, onClick, className }: Props) {
+type TypeBtn = "form" | "offer" | "submit";
+// TODO zmienic nazwe classname TypeBtn
+function Button({ children, onClick, type }: Props) {
 	const classNames = cn({
-		[css.form]: className === "form",
-		[css.offer]: className === "offer",
+		[css.form]: type === "form",
+		[css.offer]: type === "offer",
+		[css.submit]: type === "submit",
 	});
 	return (
 		<button onClick={onClick} className={classNames}>

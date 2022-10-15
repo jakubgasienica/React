@@ -96,10 +96,9 @@ export const useOffers = () => {
 			try {
 				setLoading(true);
 				setError(null);
-				const response = await fetchOffers(filter);
+				const response = await fetchOffers(filter, sort);
 				const json = await response.json();
 				setOffers(mapResponse(json));
-				// setOffers(mapResponse(jsonFilter));
 			} catch {
 				setError(Error.FetchOffers);
 			} finally {

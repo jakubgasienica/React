@@ -1,42 +1,41 @@
 import { useState } from "react";
 import css from "./SortMobile.module.css";
+import { Direction } from "components/SortContextProvider/SortContext";
 
-type Filter = "lowest" | "high salary" | "low salary";
+type ActiveSort = "lowest" | "earliest";
+// TODO stworzyć plik type w headear
+type Props = {
+	onClick: (direction: Direction) => void;
+};
 
-function SortMobile() {
-	const [filter, setFilter] = useState<Filter>("lowest");
+function SortMobile({ onClick }: Props) {
+	const [activeSort, setActiveSort] = useState<ActiveSort>("lowest");
 	const [popUp, setPopUp] = useState(false);
 
 	return (
 		<div className={css.filterSelectBox}>
 			<div onClick={() => setPopUp(!popUp)} className={css.filter}>
-				{filter}
+				{activeSort}
 			</div>
 			{popUp && (
 				<div className={css.popUp}>
 					<button
 						className={css.button}
 						onClick={() => {
-							setFilter("lowest");
+							setActiveSort("lowest");
 							setPopUp(!popUp);
+							onClick("desc");
 						}}>
 						lowest
 					</button>
 					<button
 						className={css.button}
 						onClick={() => {
-							setFilter("high salary");
+							setActiveSort("earliest");
 							setPopUp(!popUp);
+							onClick("asc");
 						}}>
-						high salary
-					</button>
-					<button
-						className={css.button}
-						onClick={() => {
-							setFilter("low salary");
-							setPopUp(!popUp);
-						}}>
-						low salary
+						earliest
 					</button>
 				</div>
 			)}

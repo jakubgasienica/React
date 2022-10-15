@@ -7,5 +7,13 @@
 	cursor: pointer;
 }
 .form {
-	background-color: blue;
+	border: none;
+	border-bottom: solid 2px #f55742;
+}
+
+.submit {
+	border: none;
+	border-bottom: solid 2px #f55742;
+	font-size: 30px;
+	background-color: none;
 }

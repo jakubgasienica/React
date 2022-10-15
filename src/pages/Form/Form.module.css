@@ -8,6 +8,12 @@
 	border-radius: 20px;
 	padding: 5px 5px;
 }
+.buttonWrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	justify-content: center;
+}
 @media screen and (min-width: 768px) {
 	.questionsWrapper {
 		display: grid;
@@ -54,12 +60,5 @@
 		display: flex;
 		align-items: center;
 		flex-direction: column;
-	}
-
-	.titleWrapper input,
-	.salaryWrapper input {
-		border: none;
-		border-bottom: 2px solid #125973;
-		background-color: #f8f3c0ea;
 	}
 }

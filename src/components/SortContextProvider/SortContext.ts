@@ -1,13 +1,13 @@
 import { createContext } from "react";
 
-type OrderBy = "asc" | "desc";
+type Direction = "asc" | "desc";
 
 const initialSort = {
 	sort: "asc",
-	setSort: (orderBy: OrderBy) => {},
+	setSortingMethod: (direction: Direction) => {},
 };
 
 const SortContext = createContext<typeof initialSort>(initialSort);
 
 export { SortContext };
-export type { OrderBy };
+export type { Direction };
