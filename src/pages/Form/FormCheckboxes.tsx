@@ -3,15 +3,30 @@ import { Input } from "components/Input/Input";
 import { InputCheckbox } from "components/InputCheckbox/InputCheckbox";
 import css from "./Form.module.css";
 import { useForm } from "./useForm";
+import type { FormData, ContractTypeSalary } from "utils/type";
 
-function FormCheckboxes() {
-	const {
-		formData,
-		handleMultipleChange,
-		handleSalaryChange,
-		handleSalaryCheckboxChange,
-	} = useForm();
+interface Props {
+	onMultipeChange: (
+		argHandleMultiple: ArgHandleMultipleType,
+		event: React.ChangeEvent<HTMLInputElement>
+	) => void;
+	formData: FormData;
+	onSalaryCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onSalaryChange: (
+		id: number,
+		key: keyof ContractTypeSalary,
+		event: React.ChangeEvent<HTMLInputElement>
+	) => void;
+}
 
+type ArgHandleMultipleType = "benefits" | "categories" | "seniorities";
+
+function FormCheckboxes({
+	formData,
+	onMultipeChange,
+	onSalaryCheckboxChange,
+	onSalaryChange,
+}: Props) {
 	return (
 		<ConfigContext.Consumer>
 			{config => {
@@ -25,7 +40,7 @@ function FormCheckboxes() {
 										checked={formData.benefits.includes(benefit.id)}
 										id={`benefit-${benefit.id}`}
 										key={benefit.id}
-										onChange={event => handleMultipleChange("benefits", event)}
+										onChange={event => onMultipeChange("benefits", event)}
 										value={benefit.id}
 										children={benefit.name}
 										htmlFor={`benefit-${benefit.id}`}
@@ -39,9 +54,7 @@ function FormCheckboxes() {
 										checked={formData.categories.includes(cat.id)}
 										id={`cat-${cat.id}`}
 										key={cat.id}
-										onChange={event =>
-											handleMultipleChange("categories", event)
-										}
+										onChange={event => onMultipeChange("categories", event)}
 										value={cat.id}
 										children={cat.name}
 										htmlFor={`benefit-${cat.id}`}
@@ -55,9 +68,7 @@ function FormCheckboxes() {
 										checked={formData.seniorities.includes(seniority.id)}
 										id={`seniority-${seniority.id}`}
 										key={seniority.id}
-										onChange={event =>
-											handleMultipleChange("seniorities", event)
-										}
+										onChange={event => onMultipeChange("seniorities", event)}
 										value={seniority.id}
 										htmlFor={`seniorities-${seniority.id}`}
 										children={seniority.name}
@@ -78,7 +89,7 @@ function FormCheckboxes() {
 										<InputCheckbox
 											checked={!!contractType}
 											id={`type-${type.id}`}
-											onChange={handleSalaryCheckboxChange}
+											onChange={onSalaryCheckboxChange}
 											value={type.id}
 											htmlFor={`contractTypes-${type.id}`}
 											children={type.name}
@@ -89,14 +100,14 @@ function FormCheckboxes() {
 												placeholder='od'
 												value={contractType?.salaryFrom.toString()}
 												onChange={event =>
-													handleSalaryChange(type.id, "salaryFrom", event)
+													onSalaryChange(type.id, "salaryFrom", event)
 												}
 											/>
 											<Input
 												placeholder='do'
 												value={contractType?.salaryTo.toString()}
 												onChange={event =>
-													handleSalaryChange(type.id, "salaryTo", event)
+													onSalaryChange(type.id, "salaryTo", event)
 												}
 											/>
 										</div>

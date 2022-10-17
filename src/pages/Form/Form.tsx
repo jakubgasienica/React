@@ -13,7 +13,15 @@ enum Steps {
 
 function Form() {
 	const [step, setStep] = useState(Steps.Inputs);
-	const { handleSubmit, formData, handleChange, handleFileChange } = useForm();
+	const {
+		handleSubmit,
+		formData,
+		handleChange,
+		handleFileChange,
+		handleMultipleChange,
+		handleSalaryChange,
+		handleSalaryCheckboxChange,
+	} = useForm();
 
 	function handleNext(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
 		setStep(Steps.Checkboxes);
@@ -46,7 +54,14 @@ function Form() {
 								)}
 							</div>
 
-							{step === Steps.Checkboxes && <FormCheckboxes />}
+							{step === Steps.Checkboxes && (
+								<FormCheckboxes
+									formData={formData}
+									onMultipeChange={handleMultipleChange}
+									onSalaryCheckboxChange={handleSalaryCheckboxChange}
+									onSalaryChange={handleSalaryChange}
+								/>
+							)}
 
 							<div className={css.buttonWrapper}>
 								{step === Steps.Checkboxes && (

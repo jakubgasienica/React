@@ -2,9 +2,20 @@ import { ConfigContext } from "components/ConfigContextProvider/configContext";
 import { Input } from "components/Input/Input";
 import css from "./Form.module.css";
 import { useForm } from "./useForm";
+import type { FormData } from "utils/type";
 
-function FormInputs() {
-	const { formData, handleChange, handleFileChange } = useForm();
+interface Props {
+	onChange: (
+		argHandle: ArgHandleType,
+		event: React.ChangeEvent<HTMLInputElement>
+	) => void;
+	formData: FormData;
+	onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+type ArgHandleType = "title" | "city" | "duration" | "company" | "description";
+
+function FormInputs({ formData, onChange, onFileChange }: Props) {
 	return (
 		<>
 			<ConfigContext.Consumer>
@@ -16,7 +27,7 @@ function FormInputs() {
 								placeholder='Add title'
 								labelText='Title'
 								value={formData.title}
-								onChange={event => handleChange("title", event)}
+								onChange={event => onChange("title", event)}
 								maxLength={20}
 								minLength={2}
 							/>
@@ -25,7 +36,7 @@ function FormInputs() {
 								placeholder='City'
 								labelText='City'
 								value={formData.city}
-								onChange={event => handleChange("city", event)}
+								onChange={event => onChange("city", event)}
 								maxLength={20}
 								minLength={2}
 							/>
@@ -34,7 +45,7 @@ function FormInputs() {
 								placeholder='Write name'
 								labelText='Comapany Name'
 								value={formData.company}
-								onChange={event => handleChange("company", event)}
+								onChange={event => onChange("company", event)}
 								maxLength={20}
 								minLength={2}
 							/>
@@ -42,20 +53,20 @@ function FormInputs() {
 								id='duration'
 								placeholder='Duration'
 								value={formData.duration.toString()}
-								onChange={event => handleChange("duration", event)}
+								onChange={event => onChange("duration", event)}
 								maxLength={3}
 								minLength={1}
 							/>
 							<Input
 								placeholder='Add Logo your firm'
 								type='file'
-								onChange={handleFileChange}
+								onChange={onFileChange}
 							/>
 							<Input
 								id='description'
 								placeholder='Add description of offer'
 								value={formData.description}
-								onChange={event => handleChange("description", event)}
+								onChange={event => onChange("description", event)}
 								maxLength={10000}
 								minLength={1}
 							/>
