@@ -1,0 +1,24 @@
+.formCheckboxesWrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.checkboxWrappper {
+	display: flex;
+}
+
+@media screen and (min-width: 768px) {
+	.formCheckboxesWrapper {
+		max-width: 1000px;
+	}
+
+	.checkboxesWrapper {
+	}
+
+	.checkboxWrappper {
+		display: grid;
+		grid-template-columns: repeat(300px 300px 300px);
+	}
+}

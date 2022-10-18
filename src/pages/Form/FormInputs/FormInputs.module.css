@@ -1,0 +1,46 @@
+.formInputWrapper {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+}
+.InputsWrapper {
+	width: 100%;
+}
+
+.title {
+	font-size: 32px;
+}
+
+.buttonWrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	justify-content: flex start;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+.activeStep {
+	width: 50px;
+	height: 20px;
+	border-radius: 10px;
+	background-color: #f28050;
+}
+.disastiveStep {
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background-color: #dbdbdb;
+}
+
+@media screen and (min-width: 768px) {
+	.formInputWrapper {
+		flex-direction: row;
+	}
+	.title {
+		width: 50%;
+	}
+	.InputsWrapper {
+		width: 50%;
+	}
+}

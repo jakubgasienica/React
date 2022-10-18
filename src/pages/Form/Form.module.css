@@ -1,19 +1,14 @@
-.title {
-	font-size: 32px;
-	margin-top: 40px;
+.wrapper {
+	width: 100%;
 }
+
 .checkboxWrap {
 	margin-top: 20px;
 	background-color: #dbdbdb;
 	border-radius: 20px;
 	padding: 5px 5px;
 }
-.buttonWrapper {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-end;
-	justify-content: center;
-}
+
 @media screen and (min-width: 768px) {
 	.questionsWrapper {
 		display: grid;
@@ -24,7 +19,6 @@
 		margin-top: 20px;
 		column-gap: 10px;
 	}
-
 	.checkboxes,
 	.salaryWrapper {
 		display: flex;
@@ -36,10 +30,6 @@
 		place-self: center;
 		grid-column: 1/2;
 		grid-row: 1/3;
-	}
-
-	.titleWrapper {
-		justify-self: center;
 	}
 
 	.salariesWrpapper {

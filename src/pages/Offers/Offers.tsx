@@ -63,11 +63,9 @@ function Offers() {
 		<div className={css.offers}>
 			{offers.map(offer => (
 				<div
-					//  offer
-					className={css.wrapper}
+					className={css.offer}
 					key={offer.id}
 					onClick={() => {
-						// goToDescription(offer.id);
 						console.log(offer.date.getDay());
 						setExtraFunc(!extraFunc)!;
 					}}>
@@ -89,17 +87,17 @@ function Offers() {
 						</div>
 						<div className={css.middleOfferBox}>
 							<div className={css.properties}>
-								<i className='fa-solid fa-location-dot'></i>
+								<i className='fa-solid fa-location-dot' />
 								<p className={css.paragraph}>{offer.companyCity}</p>
 							</div>
 							<div className={css.properties}>
-								<i className='fa-solid fa-laptop-code'></i>
+								<i className='fa-solid fa-laptop-code' />
 								<p className={css.paragraph}>
 									{offer.categories.map(cat => cat.name).join(", ")}
 								</p>
 							</div>
 							<div className={css.properties}>
-								<i className='fa-solid fa-dollar-sign'></i>
+								<i className='fa-solid fa-dollar-sign' />
 								<p className={css.paragraph}>
 									{offer.salary.map(s => s.name)}:
 								</p>
@@ -108,7 +106,7 @@ function Offers() {
 								</p>
 							</div>
 							<div className={css.properties}>
-								<i className='fa-solid fa-plus'></i>
+								<i className='fa-solid fa-plus' />
 								<p className={css.paragraph}>
 									{offer.benefits.map(benefit => benefit.name).join(", ")}
 								</p>
@@ -137,7 +135,11 @@ function Offers() {
 								Delete this offer, if you are not interested
 							</Button>
 						</div>
-						<div className={css.buttonDescription}>Go to description</div>
+						<div
+							className={css.buttonDescription}
+							onClick={() => goToDescription(offer.id)}>
+							Go to description
+						</div>
 					</div>
 				</div>
 			))}

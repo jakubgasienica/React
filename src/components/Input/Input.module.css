@@ -1,9 +1,23 @@
-.input {
+.default {
 	width: 90%;
 	height: 30px;
 	background-color: #dbdbdb;
 	border: none;
 	border-radius: 10px;
+}
+
+.error {
+	width: 90%;
+	height: 30px;
+	border-color: #b82727;
+	background-color: #dbdbdb;
+	border-radius: 10px;
+}
+
+.errorIcon {
+	position: absolute;
+	right: 2%;
+	bottom: 25px;
 }
 
 .wrapper {
@@ -12,17 +26,34 @@
 	flex-direction: row;
 }
 
+.defaultIcon {
+	display: none;
+}
+
 .wrapperLeft {
 	display: flex;
 	flex-direction: column;
+	position: relative;
+	width: 100%;
+}
+
+.errorText {
+	color: #b82727;
 }
 
 @media screen and (min-width: 768px) {
-	.input {
+	.default {
 		width: 400px;
 		height: 30px;
 		background-color: #dbdbdb;
 		border: none;
+		border-radius: 10px;
+	}
+	.error {
+		width: 400px;
+		height: 30px;
+		background-color: #dbdbdb;
+		border-color: #b82727;
 		border-radius: 10px;
 	}
 }

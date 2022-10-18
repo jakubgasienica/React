@@ -1,6 +1,6 @@
 import css from "./Header.module.css";
 import logo from "./logo.png";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Search } from "./Search/Search";
 import { SortDesktop } from "./SortDesktop/SortDesktop";
 import { SortMobile } from "./SortMobile/SortMobile";
@@ -10,7 +10,7 @@ import {
 } from "components/SortContextProvider/SortContext";
 
 function Header() {
-	const { setSortingMethod, sort } = useContext(SortContext);
+	const { setSortingMethod } = useContext(SortContext);
 
 	function handleSortChange(direction: Direction) {
 		setSortingMethod(direction);

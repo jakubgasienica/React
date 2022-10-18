@@ -1,6 +1,13 @@
 import css from "./Input.module.css";
 import { Error } from "../Error/Error";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
+import cn from "classnames";
+
+enum InputState {
+	Error,
+	Default,
+	Checked,
+}
 
 type Props = {
 	id?: string;
@@ -20,27 +27,60 @@ function Input({
 	placeholder,
 	type = "text",
 	labelText,
-	value,
+	value = "",
 	onChange,
 	maxLength = 8,
 	minLength = 2,
 }: Props) {
+	const [inputState, setInputState] = useState<InputState>(InputState.Default);
+	const [iconState, setIconState] = useState<InputState>(InputState.Default);
+	const [text, setText] = useState(" ");
+
+	const classNamesInput = cn({
+		[css.error]: inputState === InputState.Error,
+		[css.default]: inputState === InputState.Default,
+		[css.checked]: inputState === InputState.Checked,
+	});
+
+	const classNamesIcon = cn({
+		[css.errorIcon]: iconState === InputState.Error,
+		[css.defaultIcon]: iconState === InputState.Default,
+		[css.checkedIcon]: iconState === InputState.Checked,
+	});
+
+	function checkValue(valueLength: number, minLength = 2, maxLength = 10) {
+		if (valueLength < minLength) {
+			setInputState(0);
+			setIconState(0);
+			setText(`It's too short`);
+		} else if (valueLength > maxLength) {
+			setInputState(0);
+			setIconState(0);
+			setText(`It's too short`);
+		} else {
+			setInputState(1);
+			setIconState(1);
+			setText(`OK`);
+		}
+	}
+
 	return (
 		<div className={css.wrapper}>
 			<div className={css.wrapperLeft}>
 				<label htmlFor={id}>{labelText}</label>
 				<input
 					id={id}
-					className={css.input}
+					className={classNamesInput}
 					placeholder={placeholder}
 					type={type}
 					onChange={onChange}
+					onBlur={() => checkValue(value.length, minLength, maxLength)}
 					value={value}
 				/>
-			</div>
-			<div className={css.wrapperRight}>
-				{value && value.length >= maxLength && <Error>Za długa nazwa</Error>}
-				{value && value.length <= minLength && <Error>Za krótka nazwa</Error>}
+				<div className={classNamesIcon}>
+					<i className='fa-solid fa-xmark' />
+				</div>
+				<span className={css.errorText}>{text}</span>
 			</div>
 		</div>
 	);

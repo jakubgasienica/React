@@ -1,29 +1,29 @@
 import { useState } from "react";
 import css from "./SortDesktop.module.css";
 import { Direction } from "components/SortContextProvider/SortContext";
-
+import type { ActiveSort } from "../type";
 type Props = {
 	onClick: (direction: Direction) => void;
 };
 
 function SortDesktop({ onClick }: Props) {
-	const [activeSort, setActiveSort] = useState<number>(0);
+	const [activeSort, setActiveSort] = useState<ActiveSort>("lowest");
 
 	return (
 		<div>
 			<button
-				className={activeSort ? css.active : css.button}
+				className={activeSort === "lowest" ? css.active : css.button}
 				onClick={() => {
 					onClick("desc");
-					setActiveSort(0);
+					setActiveSort("lowest");
 				}}>
 				latest
 			</button>
 			<button
-				className={activeSort ? css.active : css.button}
+				className={activeSort === "earliest" ? css.active : css.button}
 				onClick={() => {
 					onClick("asc");
-					setActiveSort(1);
+					setActiveSort("earliest");
 				}}>
 				earliest
 			</button>

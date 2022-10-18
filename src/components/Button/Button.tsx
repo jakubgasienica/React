@@ -9,7 +9,7 @@ type Props = {
 };
 
 type TypeBtn = "form" | "offer" | "submit";
-// TODO zmienic nazwe classname TypeBtn
+
 function Button({ children, onClick, type }: Props) {
 	const classNames = cn({
 		[css.form]: type === "form",

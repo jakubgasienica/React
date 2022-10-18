@@ -1,9 +1,8 @@
 import { useState } from "react";
 import css from "./SortMobile.module.css";
 import { Direction } from "components/SortContextProvider/SortContext";
+import type { ActiveSort } from "../type";
 
-type ActiveSort = "lowest" | "earliest";
-// TODO stworzyć plik type w headear
 type Props = {
 	onClick: (direction: Direction) => void;
 };

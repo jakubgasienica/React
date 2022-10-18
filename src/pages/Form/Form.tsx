@@ -1,9 +1,8 @@
 import css from "./Form.module.css";
 import { ConfigContext } from "components/ConfigContextProvider/configContext";
 import { useForm } from "./useForm";
-import { FormInputs } from "./FormInputs";
-import { FormCheckboxes } from "./FormCheckboxes";
-import { Button } from "components/Button/Button";
+import { FormInputs } from "./FormInputs/FormInputs";
+import { FormCheckboxes } from "./FormCheckboxes.module.css/FormCheckboxes";
 import { useState } from "react";
 
 enum Steps {
@@ -42,17 +41,9 @@ function Form() {
 									formData={formData}
 									onFileChange={handleFileChange}
 									onChange={handleChange}
+									onHandleNext={handleNext}
 								/>
 							)}
-
-							<div className={css.buttonWrapper}>
-								{step === Steps.Inputs && (
-									// TODO wruć buutona do forminput
-									<Button onClick={handleNext} type='form'>
-										{"Next Step >"}
-									</Button>
-								)}
-							</div>
 
 							{step === Steps.Checkboxes && (
 								<FormCheckboxes
@@ -60,21 +51,10 @@ function Form() {
 									onMultipeChange={handleMultipleChange}
 									onSalaryCheckboxChange={handleSalaryCheckboxChange}
 									onSalaryChange={handleSalaryChange}
+									onHandleBack={handleBack}
+									onHandleSubmit={handleSubmit}
 								/>
 							)}
-
-							<div className={css.buttonWrapper}>
-								{step === Steps.Checkboxes && (
-									<Button onClick={handleBack} type='form'>
-										{"< Back"}
-									</Button>
-								)}
-								{step === Steps.Checkboxes && (
-									<Button onClick={handleSubmit} type='submit'>
-										Accept All!
-									</Button>
-								)}
-							</div>
 						</form>
 					</>
 				);

@@ -63,11 +63,11 @@
 	display: flex;
 	align-items: center;
 	width: 50%;
-	background-color: #f55742;
+	background-color: #b6695f;
 	border-radius: 0 0 0px 20px;
 }
 
-.wrapper {
+.offer {
 	display: flex;
 	flex-direction: column;
 	width: 90vw;
@@ -86,16 +86,17 @@
 }
 
 .buttonDescription {
-	background-color: #4ef542;
+	background-color: #48a142;
 	width: 50%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	border-radius: 0 0 20px 0px;
+	cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {
-	.wrapper {
+	.offer {
 		width: 100%;
 		max-width: 1000px;
 	}

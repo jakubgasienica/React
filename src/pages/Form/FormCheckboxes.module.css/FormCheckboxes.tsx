@@ -1,9 +1,10 @@
 import { ConfigContext } from "components/ConfigContextProvider/configContext";
 import { Input } from "components/Input/Input";
 import { InputCheckbox } from "components/InputCheckbox/InputCheckbox";
-import css from "./Form.module.css";
-import { useForm } from "./useForm";
+import css from "./FormCheckboxes.module.css";
 import type { FormData, ContractTypeSalary } from "utils/type";
+import { Button } from "components/Button/Button";
+import { classNames } from "react-select/dist/declarations/src/utils";
 
 interface Props {
 	onMultipeChange: (
@@ -17,8 +18,9 @@ interface Props {
 		key: keyof ContractTypeSalary,
 		event: React.ChangeEvent<HTMLInputElement>
 	) => void;
+	onHandleBack: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+	onHandleSubmit: () => Promise<boolean | undefined>;
 }
-
 type ArgHandleMultipleType = "benefits" | "categories" | "seniorities";
 
 function FormCheckboxes({
@@ -26,15 +28,17 @@ function FormCheckboxes({
 	onMultipeChange,
 	onSalaryCheckboxChange,
 	onSalaryChange,
+	onHandleBack,
+	onHandleSubmit,
 }: Props) {
 	return (
 		<ConfigContext.Consumer>
 			{config => {
 				return (
-					<div className={css.partTwoWrapper}>
-						<div className={css.checkboxWrapper}>
-							<div className={css.checkboxWrap}>
-								<h3>Benefits</h3>
+					<div className={css.formCheckboxesWrapper}>
+						<div className={css.checkboxesWrapper}>
+							<div className={css.checkboxWrappper}>
+								<h3 className={css.subtitle}>Benefits</h3>
 								{config.benefits.map(benefit => (
 									<InputCheckbox
 										checked={formData.benefits.includes(benefit.id)}
@@ -47,8 +51,8 @@ function FormCheckboxes({
 									/>
 								))}
 							</div>
-							<div className={css.checkboxWrap}>
-								<h3>Categories of stack</h3>
+							<div className={css.checkboxWrappper}>
+								<h3 className={css.subtitle}>Categories of stack</h3>
 								{config.categories.map(cat => (
 									<InputCheckbox
 										checked={formData.categories.includes(cat.id)}
@@ -61,8 +65,8 @@ function FormCheckboxes({
 									/>
 								))}
 							</div>
-							<div className={css.checkboxWrap}>
-								<h3>Categories of seniorities</h3>
+							<div className={css.checkboxWrappper}>
+								<h3 className={css.subtitle}>Categories of seniorities</h3>
 								{config.seniorities.map(seniority => (
 									<InputCheckbox
 										checked={formData.seniorities.includes(seniority.id)}
@@ -77,7 +81,7 @@ function FormCheckboxes({
 							</div>
 						</div>
 						<div className={css.salariesWrpapper}>
-							<h3>Categories of Contracts</h3>
+							<h3 className={css.subtitle}>Categories of Contracts</h3>
 
 							{config.contractTypes.map(type => {
 								const contractType = formData.contractTypes.find(
@@ -114,6 +118,14 @@ function FormCheckboxes({
 									</div>
 								);
 							})}
+						</div>
+						<div className={css.buttonWrapper}>
+							<Button onClick={onHandleBack} type='form'>
+								{"< Back"}
+							</Button>
+							<Button onClick={onHandleSubmit} type='submit'>
+								Accept All!
+							</Button>
 						</div>
 					</div>
 				);
