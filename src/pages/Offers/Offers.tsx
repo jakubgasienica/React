@@ -4,61 +4,28 @@ import { useOffers } from "./useOffers";
 import { Button } from "components/Button/Button";
 import { ErrorFetch } from "components/ErrorFetch/ErrorFetch";
 import { MouseEvent, useState } from "react";
-import { isFunctionExpression } from "typescript";
+import { Loading } from "components/Loading/Loading";
 
 function Offers() {
-	const { error, loading, offers, fetchDelete, goToDescription } = useOffers();
+	const {
+		error,
+		loading,
+		offers,
+		fetchDelete,
+		goToDescription,
+		getDateActive,
+		getDatePublished,
+	} = useOffers();
 	const [extraFunc, setExtraFunc] = useState(false);
-
+	//Todo stworzyc offer z calym jsx
 	if (error) {
 		return <ErrorFetch type={error} />;
 	}
 
 	if (loading) {
-		return <div>Wczytywanie...</div>;
+		return <Loading />;
 	}
-	function getDatePublished(date: Date) {
-		// przenieśc do utils
-		const months = [
-			"January",
-			"February",
-			"March",
-			"April",
-			"May",
-			"June",
-			"July",
-			"August",
-			"September",
-			"October",
-			"November",
-			"December",
-		];
-		let month = months[date.getMonth()];
-		return `${date.getDate()} ${month}`;
-	}
-	function getDateActive(date: Date) {
-		const months = [
-			"January",
-			"February",
-			"March",
-			"April",
-			"May",
-			"June",
-			"July",
-			"August",
-			"September",
-			"October",
-			"November",
-			"December",
-		];
-		let month: string;
-		if (date.getMonth() === months.length) {
-			month = months[0];
-		} else {
-			month = months[date.getMonth() + 1];
-		}
-		return `${date.getDate()} ${month}`;
-	}
+
 	return (
 		<div className={css.offers}>
 			{offers.map(offer => (
@@ -66,8 +33,7 @@ function Offers() {
 					className={css.offer}
 					key={offer.id}
 					onClick={() => {
-						console.log(offer.date.getDay());
-						setExtraFunc(!extraFunc)!;
+						setExtraFunc(!extraFunc);
 					}}>
 					<div
 						className={
@@ -117,10 +83,11 @@ function Offers() {
 								Published: {getDatePublished(offer.date)}
 							</p>
 							<p className={css.dateText}>
-								Active: {getDateActive(offer.date)}
+								Active: {getDateActive(offer.date, offer.duration)}
 							</p>
 						</div>
 					</div>
+					{/* {extraFunc ? <></> : <></>} */}
 					<div
 						className={
 							extraFunc ? css.popUpExtraFunc : css.popUpExtraFuncNoDisplay
@@ -129,13 +96,14 @@ function Offers() {
 							<Button
 								onClick={(event: MouseEvent<HTMLButtonElement>) => {
 									event.stopPropagation();
-									// fetchDelete(offer.id);
+									fetchDelete(offer.id);
 								}}
 								type='offer'>
 								Delete this offer, if you are not interested
 							</Button>
 						</div>
 						<div
+							// TODO wrz	uc to na button
 							className={css.buttonDescription}
 							onClick={() => goToDescription(offer.id)}>
 							Go to description

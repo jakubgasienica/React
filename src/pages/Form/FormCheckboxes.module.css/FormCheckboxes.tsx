@@ -5,6 +5,7 @@ import css from "./FormCheckboxes.module.css";
 import type { FormData, ContractTypeSalary } from "utils/type";
 import { Button } from "components/Button/Button";
 import { classNames } from "react-select/dist/declarations/src/utils";
+import { isTooLong, isTooShort } from "../Validation";
 
 interface Props {
 	onMultipeChange: (
@@ -22,6 +23,15 @@ interface Props {
 	onHandleSubmit: () => Promise<boolean | undefined>;
 }
 type ArgHandleMultipleType = "benefits" | "categories" | "seniorities";
+
+const onHandleBlur = (
+	valueLength: number,
+	maxLength: number,
+	minLength: number
+) => {
+	isTooLong(`it's too long`, valueLength, maxLength);
+	isTooShort(`it's too short`, valueLength, minLength);
+};
 
 function FormCheckboxes({
 	formData,

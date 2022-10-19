@@ -94,6 +94,8 @@
 	border-radius: 0 0 20px 0px;
 	cursor: pointer;
 }
+.loading {
+}
 
 @media screen and (min-width: 768px) {
 	.offer {

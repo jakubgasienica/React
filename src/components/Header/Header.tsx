@@ -14,7 +14,6 @@ function Header() {
 
 	function handleSortChange(direction: Direction) {
 		setSortingMethod(direction);
-		console.log("change sort");
 	}
 
 	return (

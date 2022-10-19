@@ -1,11 +1,12 @@
 import css from "./Description.module.css";
+import { useParams } from "react-router-dom";
 
 function Description() {
-	const queryParams = new URLSearchParams(window.location.search);
-	console.log(queryParams.get(""));
+	const { id } = useParams();
+
 	return (
 		<>
-			<div className={css.wrapper}>Description of offer</div>
+			<div className={css.wrapper}>Description of offer {id}</div>
 		</>
 	);
 }

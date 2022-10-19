@@ -16,8 +16,8 @@ type Props = {
 	value?: string;
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 	labelText?: string;
-	maxLength?: number;
-	minLength?: number;
+	error?: string;
+	onBlur?: React.FocusEventHandler<HTMLInputElement> | undefined;
 };
 
 type Type = "password" | "text" | "email" | "file" | "checkbox";
@@ -29,17 +29,18 @@ function Input({
 	labelText,
 	value = "",
 	onChange,
-	maxLength = 8,
-	minLength = 2,
+	onBlur,
 }: Props) {
 	const [inputState, setInputState] = useState<InputState>(InputState.Default);
 	const [iconState, setIconState] = useState<InputState>(InputState.Default);
 	const [text, setText] = useState(" ");
+	// const handleBlur = () => checkValue(value.length, minLength, maxLength); //setTouched(true)
 
+	// todo text == errortext
 	const classNamesInput = cn({
-		[css.error]: inputState === InputState.Error,
-		[css.default]: inputState === InputState.Default,
-		[css.checked]: inputState === InputState.Checked,
+		// [css.error]: !!error,
+		// [css.default]: !error,
+		// [css.checked]: touched && !error,
 	});
 
 	const classNamesIcon = cn({
@@ -48,40 +49,27 @@ function Input({
 		[css.checkedIcon]: iconState === InputState.Checked,
 	});
 
-	function checkValue(valueLength: number, minLength = 2, maxLength = 10) {
-		if (valueLength < minLength) {
-			setInputState(0);
-			setIconState(0);
-			setText(`It's too short`);
-		} else if (valueLength > maxLength) {
-			setInputState(0);
-			setIconState(0);
-			setText(`It's too short`);
-		} else {
-			setInputState(1);
-			setIconState(1);
-			setText(`OK`);
-		}
-	}
+	// przeniesc logike wyzej
 
 	return (
 		<div className={css.wrapper}>
-			<div className={css.wrapperLeft}>
-				<label htmlFor={id}>{labelText}</label>
-				<input
-					id={id}
-					className={classNamesInput}
-					placeholder={placeholder}
-					type={type}
-					onChange={onChange}
-					onBlur={() => checkValue(value.length, minLength, maxLength)}
-					value={value}
-				/>
-				<div className={classNamesIcon}>
-					<i className='fa-solid fa-xmark' />
-				</div>
-				<span className={css.errorText}>{text}</span>
+			{/* // todo owrapuj inputa,aby realatywn */}
+			<label htmlFor={id}>{labelText}</label>
+
+			<input
+				id={id}
+				className={classNamesInput}
+				placeholder={placeholder}
+				type={type}
+				onChange={onChange}
+				onBlur={onBlur}
+				value={value}
+			/>
+			<div className={classNamesIcon}>
+				<i className='fa-solid fa-xmark' />
 			</div>
+			{/* dodaj div, wysokic min na span */}
+			<span className={css.errorText}>{text}</span>
 		</div>
 	);
 }

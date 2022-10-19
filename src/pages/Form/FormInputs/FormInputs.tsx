@@ -3,6 +3,7 @@ import { Input } from "components/Input/Input";
 import css from "./FormInputs.module.css";
 import type { FormData } from "utils/type";
 import { Button } from "components/Button/Button";
+import { isTooLong, isTooShort } from "../Validation";
 
 interface Props {
 	onChange: (
@@ -13,6 +14,15 @@ interface Props {
 	onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onHandleNext: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
+
+const onHandleBlur = (
+	valueLength: number,
+	maxLength: number,
+	minLength: number
+) => {
+	isTooLong(`it's too long`, valueLength, maxLength);
+	isTooShort(`it's too short`, valueLength, minLength);
+};
 
 type ArgHandleType = "title" | "city" | "duration" | "company" | "description";
 
@@ -33,8 +43,7 @@ function FormInputs({ formData, onChange, onFileChange, onHandleNext }: Props) {
 									labelText='Title'
 									value={formData.title}
 									onChange={event => onChange("title", event)}
-									maxLength={20}
-									minLength={2}
+									onBlur={() => onHandleBlur(formData.title.length, 20, 2)}
 								/>
 								<Input
 									id='City'
@@ -42,8 +51,7 @@ function FormInputs({ formData, onChange, onFileChange, onHandleNext }: Props) {
 									labelText='City'
 									value={formData.city}
 									onChange={event => onChange("city", event)}
-									maxLength={20}
-									minLength={2}
+									onBlur={() => onHandleBlur(formData.title.length, 20, 2)}
 								/>
 								<Input
 									id='company'
@@ -51,29 +59,37 @@ function FormInputs({ formData, onChange, onFileChange, onHandleNext }: Props) {
 									labelText='Comapany Name'
 									value={formData.company}
 									onChange={event => onChange("company", event)}
-									maxLength={20}
-									minLength={2}
+									onBlur={() => onHandleBlur(formData.title.length, 20, 2)}
 								/>
 								<Input
 									id='duration'
 									placeholder='Duration'
 									value={formData.duration.toString()}
 									onChange={event => onChange("duration", event)}
-									maxLength={3}
-									minLength={1}
+									onBlur={() => onHandleBlur(formData.title.length, 3, 1)}
 								/>
 								<Input
 									placeholder='Add Logo your firm'
 									type='file'
 									onChange={onFileChange}
+									// error={fileError}
+									// onBlur={(file) => {
+									// 	if (!isFileValid(file)) {
+									// 		setFileError('Wrong file!')
+									// 	}
+									// 	if ( !isTooLarge(file)) {
+									// 		setFileError('File too large!')
+									// 	}
+									// }}
+									onBlur={() => onHandleBlur(formData.title.length, 3, 1)}
 								/>
+								{/* todo text area */}
 								<Input
 									id='description'
 									placeholder='Add description of offer'
 									value={formData.description}
 									onChange={event => onChange("description", event)}
-									maxLength={10000}
-									minLength={1}
+									onBlur={() => onHandleBlur(formData.title.length, 3, 1)}
 								/>
 								<div className={css.buttonWrapper}>
 									<div className={css.activeStep} />

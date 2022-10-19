@@ -17,7 +17,8 @@ function InputCheckbox({ checked, id, onChange, value, children }: Props) {
 				checked={checked}
 				id={id}
 				onChange={onChange}
-				value={value}></input>
+				value={value}
+			/>
 
 			<label htmlFor={id}>{children}</label>
 		</div>

@@ -25,7 +25,7 @@ function ErrorFetch({ type }: Props) {
 
 	return (
 		<div className={classNames}>
-			<p>{text}</p>
+			<h3 className={css.paragraph}>{text}</h3>
 		</div>
 	);
 }

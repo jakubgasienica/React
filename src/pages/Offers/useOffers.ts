@@ -6,7 +6,7 @@ import { Offer } from "utils/type";
 import { FilterContext } from "components/FilterContextProvider/filterContext";
 import { useNavigate } from "react-router-dom";
 import { SortContext } from "components/SortContextProvider/SortContext";
-import { fetchSort } from "utils/fetchSort";
+import { months } from "../../utils/variables";
 
 type ResponseData = {
 	data: {
@@ -39,6 +39,20 @@ type ResponseData = {
 		}[];
 	};
 };
+
+function getDatePublished(date: Date) {
+	let month = months[date.getMonth()];
+	return `${date.getDate()} ${month}`;
+}
+
+function getDateActive(date: Date, duration: number) {
+	const newDate = new Date();
+	newDate.setDate(date.getDate() + duration);
+
+	let month = months[newDate.getMonth()];
+
+	return `${newDate.getDate()} ${month}`;
+}
 
 export function mapResponse(data: ResponseData): Offer[] {
 	return data.data.records.map(record => ({
@@ -115,5 +129,7 @@ export const useOffers = () => {
 		error,
 		fetchDelete,
 		goToDescription,
+		getDateActive,
+		getDatePublished,
 	};
 };
