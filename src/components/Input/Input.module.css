@@ -41,6 +41,9 @@
 	color: #b82727;
 }
 
+.checked {
+	border-color: green;
+}
 @media screen and (min-width: 768px) {
 	.default {
 		width: 400px;

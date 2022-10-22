@@ -17,7 +17,8 @@ type Props = {
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 	labelText?: string;
 	error?: string;
-	onBlur?: React.FocusEventHandler<HTMLInputElement> | undefined;
+	touched?: boolean;
+	onBlur?: () => void;
 };
 
 type Type = "password" | "text" | "email" | "file" | "checkbox";
@@ -30,27 +31,33 @@ function Input({
 	value = "",
 	onChange,
 	onBlur,
+	error,
 }: Props) {
 	const [inputState, setInputState] = useState<InputState>(InputState.Default);
 	const [iconState, setIconState] = useState<InputState>(InputState.Default);
-	const [text, setText] = useState(" ");
+	const [touched, setTouched] = useState(false);
 	// const handleBlur = () => checkValue(value.length, minLength, maxLength); //setTouched(true)
+
+	function handleChange(event: ChangeEvent<HTMLInputElement>) {
+		setTouched(true);
+		onChange(event);
+	}
 
 	// todo text == errortext
 	const classNamesInput = cn({
-		// [css.error]: !!error,
-		// [css.default]: !error,
-		// [css.checked]: touched && !error,
+		[css.error]: !!error,
+		[css.default]: !error,
+		[css.checked]: touched && !error,
 	});
 
 	const classNamesIcon = cn({
-		[css.errorIcon]: iconState === InputState.Error,
-		[css.defaultIcon]: iconState === InputState.Default,
-		[css.checkedIcon]: iconState === InputState.Checked,
+		[css.errorIcon]: !!error,
+		[css.defaultIcon]: !error,
+		[css.checkedIcon]: touched && !error,
 	});
 
 	// przeniesc logike wyzej
-
+	console.log(error);
 	return (
 		<div className={css.wrapper}>
 			{/* // todo owrapuj inputa,aby realatywn */}
@@ -61,7 +68,7 @@ function Input({
 				className={classNamesInput}
 				placeholder={placeholder}
 				type={type}
-				onChange={onChange}
+				onChange={handleChange}
 				onBlur={onBlur}
 				value={value}
 			/>
@@ -69,7 +76,7 @@ function Input({
 				<i className='fa-solid fa-xmark' />
 			</div>
 			{/* dodaj div, wysokic min na span */}
-			<span className={css.errorText}>{text}</span>
+			<span className={css.errorText}>{error}</span>
 		</div>
 	);
 }

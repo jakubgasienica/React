@@ -1,12 +1,14 @@
-function isTooLong(text: string, valueLength: number, maxLength: number) {
-	if (valueLength > maxLength) {
-		return text;
+function isTooLong(value: string, maxLength: number) {
+	if (value.length > maxLength) {
+		return true;
 	}
+	return false;
 }
-function isTooShort(text: string, valueLength: number, minLength: number) {
-	if (valueLength > minLength) {
-		return text;
+function isTooShort(value: string, minLength: number) {
+	if (value.length < minLength) {
+		return true;
 	}
+	return false;
 }
 
 export { isTooLong, isTooShort };

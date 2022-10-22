@@ -1,9 +1,11 @@
 import { ConfigContext } from "components/ConfigContextProvider/configContext";
 import { Input } from "components/Input/Input";
 import css from "./FormInputs.module.css";
-import type { FormData } from "utils/type";
+import type { FormData, FormDataSingle } from "utils/type";
 import { Button } from "components/Button/Button";
 import { isTooLong, isTooShort } from "../Validation";
+import { handleInputChange } from "react-select/dist/declarations/src/utils";
+import { useState } from "react";
 
 interface Props {
 	onChange: (
@@ -15,18 +17,43 @@ interface Props {
 	onHandleNext: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const onHandleBlur = (
-	valueLength: number,
-	maxLength: number,
-	minLength: number
-) => {
-	isTooLong(`it's too long`, valueLength, maxLength);
-	isTooShort(`it's too short`, valueLength, minLength);
-};
+// const onHandleBlur = (
+// 	value: string,
+// 	maxLength: number,
+// 	minLength: number,
 
-type ArgHandleType = "title" | "city" | "duration" | "company" | "description";
+// 	touched: boolean
+// ) => {
+// 	isTooShort(value.length, minLength);
+// 	isTouched(value);
+// };
+
+type ArgHandleType = keyof FormDataSingle;
+
+type ValidationErrors = Partial<Record<ArgHandleType, string>>; // typescript helpers
+
+// const validateTitle = (title: string) => {
+let error = "";
+// 	if (isTooShort...) {
+// 		eror = "Tytul jest za krotki"
+// 	}
+
+// setValidationErrors((state)=> ({
+// 	...state,
+// 	title: error
+// }))
+// }
+
+// const validateAll = () => {
+// validateTitle();
+// validateDescription();
+// }
+
+// todo zrobic usevalidation - hook z logika walidacji
 
 function FormInputs({ formData, onChange, onFileChange, onHandleNext }: Props) {
+	const [validationErrors, setValidationErrors] = useState<ValidationErrors>();
+
 	return (
 		<>
 			<ConfigContext.Consumer>
@@ -43,9 +70,23 @@ function FormInputs({ formData, onChange, onFileChange, onHandleNext }: Props) {
 									labelText='Title'
 									value={formData.title}
 									onChange={event => onChange("title", event)}
-									onBlur={() => onHandleBlur(formData.title.length, 20, 2)}
+									onBlur={() => {
+										if (isTooLong(formData.title, 10)) {
+											setValidationErrors(state => ({
+												...state,
+												title: "It's too long",
+											}));
+										}
+										if (isTooShort(formData.title, 2)) {
+											setValidationErrors(state => ({
+												...state,
+												title: "It's too short",
+											}));
+										}
+									}}
+									error={validationErrors?.title} // "", undefined
 								/>
-								<Input
+								{/* <Input
 									id='City'
 									placeholder='City'
 									labelText='City'
@@ -67,8 +108,8 @@ function FormInputs({ formData, onChange, onFileChange, onHandleNext }: Props) {
 									value={formData.duration.toString()}
 									onChange={event => onChange("duration", event)}
 									onBlur={() => onHandleBlur(formData.title.length, 3, 1)}
-								/>
-								<Input
+								/> */}
+								{/* <Input
 									placeholder='Add Logo your firm'
 									type='file'
 									onChange={onFileChange}
@@ -82,9 +123,9 @@ function FormInputs({ formData, onChange, onFileChange, onHandleNext }: Props) {
 									// 	}
 									// }}
 									onBlur={() => onHandleBlur(formData.title.length, 3, 1)}
-								/>
+								/> */}
 								{/* todo text area */}
-								<Input
+								{/* <Input
 									id='description'
 									placeholder='Add description of offer'
 									value={formData.description}
@@ -97,7 +138,7 @@ function FormInputs({ formData, onChange, onFileChange, onHandleNext }: Props) {
 									<Button onClick={onHandleNext} type='form'>
 										{"Next Step >"}
 									</Button>
-								</div>
+								</div> */}
 							</div>
 						</div>
 					);

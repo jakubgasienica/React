@@ -25,13 +25,10 @@ interface Props {
 type ArgHandleMultipleType = "benefits" | "categories" | "seniorities";
 
 const onHandleBlur = (
-	valueLength: number,
+	value: string,
 	maxLength: number,
 	minLength: number
-) => {
-	isTooLong(`it's too long`, valueLength, maxLength);
-	isTooShort(`it's too short`, valueLength, minLength);
-};
+) => {};
 
 function FormCheckboxes({
 	formData,
