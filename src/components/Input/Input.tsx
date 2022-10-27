@@ -33,17 +33,19 @@ function Input({
 	onBlur,
 	error,
 }: Props) {
-	const [inputState, setInputState] = useState<InputState>(InputState.Default);
-	const [iconState, setIconState] = useState<InputState>(InputState.Default);
+	// const [inputState, setInputState] = useState<InputState>(InputState.Default);
+	// const [iconState, setIconState] = useState<InputState>(InputState.Default);
 	const [touched, setTouched] = useState(false);
 	// const handleBlur = () => checkValue(value.length, minLength, maxLength); //setTouched(true)
 
 	function handleChange(event: ChangeEvent<HTMLInputElement>) {
 		setTouched(true);
 		onChange(event);
+
+		console.log(`func: ${touched}`);
+		console.log(`error state:${!error}`);
 	}
 
-	// todo text == errortext
 	const classNamesInput = cn({
 		[css.error]: !!error,
 		[css.default]: !error,
@@ -56,27 +58,34 @@ function Input({
 		[css.checkedIcon]: touched && !error,
 	});
 
-	// przeniesc logike wyzej
-	console.log(error);
+	console.log(touched);
+	console.log(classNamesIcon);
+
 	return (
 		<div className={css.wrapper}>
-			{/* // todo owrapuj inputa,aby realatywn */}
 			<label htmlFor={id}>{labelText}</label>
-
-			<input
-				id={id}
-				className={classNamesInput}
-				placeholder={placeholder}
-				type={type}
-				onChange={handleChange}
-				onBlur={onBlur}
-				value={value}
-			/>
-			<div className={classNamesIcon}>
-				<i className='fa-solid fa-xmark' />
+			<div className={css.inputWrapper}>
+				<input
+					id={id}
+					className={classNamesInput}
+					placeholder={placeholder}
+					type={type}
+					onChange={handleChange}
+					onBlur={onBlur}
+					value={value}
+				/>
+				<div className={classNamesIcon}>
+					{classNamesIcon === css.errorIcon && (
+						<i className='fa-solid fa-xmark' style={{ color: "#b82727" }} />
+					)}
+					{classNamesIcon === css.checkedIcon && (
+						<i className='fa-solid fa-check' style={{ color: "#48a142" }} />
+					)}
+				</div>
 			</div>
-			{/* dodaj div, wysokic min na span */}
-			<span className={css.errorText}>{error}</span>
+			<div className={css.errorWrapper}>
+				<span className={css.errorText}>{error}</span>
+			</div>
 		</div>
 	);
 }

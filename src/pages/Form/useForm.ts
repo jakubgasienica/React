@@ -40,6 +40,18 @@ const useForm = () => {
 		}));
 	};
 
+	const handleDescription = (
+		key: keyof FormData,
+		event: ChangeEvent<HTMLTextAreaElement>
+	) => {
+		const str = event.target.value;
+
+		setFormData(state => ({
+			...state,
+			[key]: str,
+		}));
+	};
+
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files) {
 			const file = event.target.files[0];
@@ -149,6 +161,7 @@ const useForm = () => {
 		handleSalaryChange,
 		handleSalaryCheckboxChange,
 		handleSubmit,
+		handleDescription,
 	};
 };
 

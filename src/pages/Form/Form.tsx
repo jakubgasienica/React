@@ -20,6 +20,7 @@ function Form() {
 		handleMultipleChange,
 		handleSalaryChange,
 		handleSalaryCheckboxChange,
+		handleDescription,
 	} = useForm();
 
 	function handleNext(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -42,6 +43,7 @@ function Form() {
 									onFileChange={handleFileChange}
 									onChange={handleChange}
 									onHandleNext={handleNext}
+									onDescriptionChange={handleDescription}
 								/>
 							)}
 
