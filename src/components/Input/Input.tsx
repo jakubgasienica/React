@@ -1,13 +1,6 @@
 import css from "./Input.module.css";
-import { Error } from "../Error/Error";
 import { ChangeEvent, useState } from "react";
 import cn from "classnames";
-
-enum InputState {
-	Error,
-	Default,
-	Checked,
-}
 
 type Props = {
 	id?: string;
@@ -33,11 +26,7 @@ function Input({
 	onBlur,
 	error,
 }: Props) {
-	// const [inputState, setInputState] = useState<InputState>(InputState.Default);
-	// const [iconState, setIconState] = useState<InputState>(InputState.Default);
 	const [touched, setTouched] = useState(false);
-	// const handleBlur = () => checkValue(value.length, minLength, maxLength); //setTouched(true)
-
 	function handleChange(event: ChangeEvent<HTMLInputElement>) {
 		setTouched(true);
 		onChange(event);
@@ -46,20 +35,15 @@ function Input({
 		console.log(`error state:${!error}`);
 	}
 
-	const classNamesInput = cn({
+	const classNamesInput = cn(css.default, {
 		[css.error]: !!error,
-		[css.default]: !error,
 		[css.checked]: touched && !error,
 	});
 
-	const classNamesIcon = cn({
+	const classNamesIcon = cn(css.defaultIcon, {
 		[css.errorIcon]: !!error,
-		[css.defaultIcon]: !error,
 		[css.checkedIcon]: touched && !error,
 	});
-
-	console.log(touched);
-	console.log(classNamesIcon);
 
 	return (
 		<div className={css.wrapper}>
@@ -75,12 +59,8 @@ function Input({
 					value={value}
 				/>
 				<div className={classNamesIcon}>
-					{classNamesIcon === css.errorIcon && (
-						<i className='fa-solid fa-xmark' style={{ color: "#b82727" }} />
-					)}
-					{classNamesIcon === css.checkedIcon && (
-						<i className='fa-solid fa-check' style={{ color: "#48a142" }} />
-					)}
+					{error && <i className='fa-solid fa-xmark' />}
+					{!error && touched && <i className='fa-solid fa-check' />}
 				</div>
 			</div>
 			<div className={css.errorWrapper}>

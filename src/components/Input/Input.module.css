@@ -7,18 +7,26 @@
 }
 
 .error {
-	width: 100%;
-	height: 30px;
-	border: none;
 	border: #b82727 solid 2px;
-	background-color: #dbdbdb;
-	border-radius: 10px;
 }
 
-.errorIcon {
+.checked {
+	border: #48a142 solid 2px;
+}
+
+.errorIcon,
+.checkedIcon {
 	position: absolute;
 	bottom: 5px;
 	right: 10px;
+}
+
+.errorIcon i {
+	color: #b82727;
+}
+
+.checkedIcon i {
+	color: #48a142;
 }
 
 .wrapper {
@@ -35,12 +43,6 @@
 	color: #b82727;
 }
 
-.checked {
-	width: 100%;
-	border: none;
-	border: #48a142 solid 2px;
-}
-
 .errorWrapper {
 	height: 20px;
 }
@@ -48,18 +50,8 @@
 @media screen and (min-width: 768px) {
 	.default {
 		width: 400px;
-		height: 30px;
-		background-color: #dbdbdb;
-		border: none;
-		border-radius: 10px;
 	}
-	.error {
-		width: 400px;
-		height: 30px;
-		background-color: #dbdbdb;
-		border-color: #b82727;
-		border-radius: 10px;
-	}
+
 	.inputWrapper {
 		width: min-content;
 	}

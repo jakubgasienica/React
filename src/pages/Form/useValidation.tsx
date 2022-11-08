@@ -4,31 +4,22 @@ import { isTooLong, isTooShort } from "./Validation";
 
 type ValidationErrors = Partial<Record<keyof FormDataSingle, string>>;
 
-// const validateTitle = (title: string) => {
-let error = "";
-// 	if (isTooShort...) {
-//
+const titleMaxLength = 30;
 
-// const validateAll = () => {
-// validateTitle();
-// validateDescription();
-// }
-
-function useValidation() {
+function useValidation(formData: FormDataSingle) {
 	const [validationErrors, setValidationErrors] = useState<ValidationErrors>();
 
-	function validateTitle(title: string) {
+	function validateTitle() {
 		let error = "";
-		if (isTooLong(title, 30)) {
+
+		if (isTooLong(formData.title, titleMaxLength)) {
 			error = "Title is too long";
 		}
-		setValidationErrors(state => ({
-			...state,
-			title: error,
-		}));
-		if (isTooShort(title, 2)) {
+
+		if (isTooShort(formData.title, 2)) {
 			error = "Title is too short";
 		}
+
 		setValidationErrors(state => ({
 			...state,
 			title: error,
@@ -40,10 +31,7 @@ function useValidation() {
 		if (isTooLong(title, 30)) {
 			error = "Title is too long";
 		}
-		setValidationErrors(state => ({
-			...state,
-			city: error,
-		}));
+
 		if (isTooShort(title, 2)) {
 			error = "Title is too short";
 		}
@@ -58,10 +46,7 @@ function useValidation() {
 		if (isTooLong(title, 30)) {
 			error = "Title is too long";
 		}
-		setValidationErrors(state => ({
-			...state,
-			company: error,
-		}));
+
 		if (isTooShort(title, 2)) {
 			error = "Title is too short";
 		}
@@ -76,10 +61,7 @@ function useValidation() {
 		if (isTooLong(title, 2)) {
 			error = "Title is too long";
 		}
-		setValidationErrors(state => ({
-			...state,
-			duration: error,
-		}));
+
 		if (isTooShort(title, 1)) {
 			error = "Title is too short";
 		}
@@ -94,13 +76,11 @@ function useValidation() {
 		if (isTooLong(title, 10000)) {
 			error = "Title is too long";
 		}
-		setValidationErrors(state => ({
-			...state,
-			description: error,
-		}));
+
 		if (isTooShort(title, 1)) {
 			error = "Title is too short";
 		}
+
 		setValidationErrors(state => ({
 			...state,
 			description: error,
@@ -108,7 +88,7 @@ function useValidation() {
 	}
 
 	function validateAll() {
-		validateTitle("");
+		validateTitle();
 		validateCity("");
 		validateCompany("");
 		validateDuration("");

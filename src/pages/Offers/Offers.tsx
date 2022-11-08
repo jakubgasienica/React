@@ -17,6 +17,7 @@ function Offers() {
 		getDatePublished,
 	} = useOffers();
 	const [extraFunc, setExtraFunc] = useState(false);
+
 	//Todo stworzyc offer z calym jsx
 	if (error) {
 		return <ErrorFetch type={error} />;

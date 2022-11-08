@@ -35,7 +35,7 @@ function FormInputs({
 		validateDuration,
 		validateDescription,
 		validationErrors,
-	} = useValidation();
+	} = useValidation(formData);
 
 	return (
 		<>
@@ -53,9 +53,7 @@ function FormInputs({
 									labelText='Title'
 									value={formData.title}
 									onChange={event => onChange("title", event)}
-									onBlur={() => {
-										validateTitle(formData.title);
-									}}
+									onBlur={validateTitle}
 									error={validationErrors?.title}
 								/>
 								<Input
