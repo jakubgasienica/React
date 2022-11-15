@@ -4,15 +4,13 @@ import { isTooLong, isTooShort } from "./Validation";
 
 type ValidationErrors = Partial<Record<keyof FormDataSingle, string>>;
 
-const titleMaxLength = 30;
-
-function useValidation(formData: FormDataSingle) {
+function useValidationFormInputs(formData: FormDataSingle) {
 	const [validationErrors, setValidationErrors] = useState<ValidationErrors>();
 
 	function validateTitle() {
 		let error = "";
 
-		if (isTooLong(formData.title, titleMaxLength)) {
+		if (isTooLong(formData.title, 30)) {
 			error = "Title is too long";
 		}
 
@@ -26,13 +24,13 @@ function useValidation(formData: FormDataSingle) {
 		}));
 	}
 
-	function validateCity(title: string) {
+	function validateCity() {
 		let error = "";
-		if (isTooLong(title, 30)) {
+		if (isTooLong(formData.city, 30)) {
 			error = "Title is too long";
 		}
 
-		if (isTooShort(title, 2)) {
+		if (isTooShort(formData.city, 2)) {
 			error = "Title is too short";
 		}
 		setValidationErrors(state => ({
@@ -41,13 +39,13 @@ function useValidation(formData: FormDataSingle) {
 		}));
 	}
 
-	function validateCompany(title: string) {
+	function validateCompany() {
 		let error = "";
-		if (isTooLong(title, 30)) {
+		if (isTooLong(formData.company, 30)) {
 			error = "Title is too long";
 		}
 
-		if (isTooShort(title, 2)) {
+		if (isTooShort(formData.company, 2)) {
 			error = "Title is too short";
 		}
 		setValidationErrors(state => ({
@@ -56,13 +54,13 @@ function useValidation(formData: FormDataSingle) {
 		}));
 	}
 
-	function validateDuration(title: string) {
+	function validateDuration() {
 		let error = "";
-		if (isTooLong(title, 2)) {
+		if (isTooLong(formData.duration.toString(), 2)) {
 			error = "Title is too long";
 		}
 
-		if (isTooShort(title, 1)) {
+		if (isTooShort(formData.duration.toString(), 1)) {
 			error = "Title is too short";
 		}
 		setValidationErrors(state => ({
@@ -71,13 +69,13 @@ function useValidation(formData: FormDataSingle) {
 		}));
 	}
 
-	function validateDescription(title: string) {
+	function validateDescription() {
 		let error = "";
-		if (isTooLong(title, 10000)) {
+		if (isTooLong(formData.description, 10000)) {
 			error = "Title is too long";
 		}
 
-		if (isTooShort(title, 1)) {
+		if (isTooShort(formData.description, 1)) {
 			error = "Title is too short";
 		}
 
@@ -89,10 +87,10 @@ function useValidation(formData: FormDataSingle) {
 
 	function validateAll() {
 		validateTitle();
-		validateCity("");
-		validateCompany("");
-		validateDuration("");
-		validateDescription("");
+		validateCity();
+		validateCompany();
+		validateDuration();
+		validateDescription();
 	}
 	return {
 		validateTitle,
@@ -101,7 +99,8 @@ function useValidation(formData: FormDataSingle) {
 		validateDuration,
 		validateDescription,
 		validationErrors,
+		validateAll,
 	};
 }
 
-export { useValidation };
+export { useValidationFormInputs };

@@ -30,9 +30,6 @@ function Input({
 	function handleChange(event: ChangeEvent<HTMLInputElement>) {
 		setTouched(true);
 		onChange(event);
-
-		console.log(`func: ${touched}`);
-		console.log(`error state:${!error}`);
 	}
 
 	const classNamesInput = cn(css.default, {

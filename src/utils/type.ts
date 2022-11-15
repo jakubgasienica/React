@@ -25,9 +25,9 @@ type ContractTypeSalary = {
 	salaryFrom: number;
 	salaryTo: number;
 };
-
-type ContractType = {
-	contractTypeId: number;
+//ContracttypePayload
+type ContractTypePayload = {
+	contractTypeId: ContractType["id"]; //context
 } & ContractTypeSalary;
 
 type FormDataSingle = {

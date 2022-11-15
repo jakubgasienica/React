@@ -1,4 +1,6 @@
 import css from "./Textarea.module.css";
+import cn from "classnames";
+import { ChangeEvent, useState } from "react";
 
 type Props = {
 	id: string;
@@ -9,6 +11,7 @@ type Props = {
 	value: string;
 	onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 	onBlur: React.FocusEventHandler<HTMLTextAreaElement>;
+	error?: string;
 };
 
 function Textarea({
@@ -20,9 +23,22 @@ function Textarea({
 	value,
 	onChange,
 	onBlur,
+	error,
 }: Props) {
+	const [touched, setTouched] = useState(false);
+
+	function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
+		setTouched(true);
+		onChange(event);
+	}
+
+	const classNames = cn(css.textarea, {
+		[css.error]: !!error,
+		[css.checked]: touched && !error,
+	});
+
 	return (
-		<>
+		<div className={css.wrapper}>
 			<label htmlFor={id}> {textLabel} </label>
 			<textarea
 				id={id}
@@ -30,11 +46,14 @@ function Textarea({
 				cols={cols}
 				placeholder={placeholder}
 				value={value}
-				onChange={onChange}
+				onChange={handleChange}
 				onBlur={onBlur}
-				className={css.textarea}
+				className={classNames}
 			/>
-		</>
+			<div className={css.errorWrapper}>
+				<span className={css.errorText}>{error}</span>
+			</div>
+		</div>
 	);
 }
 

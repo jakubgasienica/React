@@ -3,9 +3,8 @@ import { Input } from "components/Input/Input";
 import css from "./FormInputs.module.css";
 import type { FormData, FormDataSingle } from "utils/type";
 import { Button } from "components/Button/Button";
-import { useValidation } from "../useValidation";
+import { useValidationFormInputs } from "../useValidationFormInputs";
 import { Textarea } from "components/Textarea/Textarea";
-import { Description } from "pages/Description/Description";
 
 interface Props {
 	onChange: (
@@ -35,7 +34,7 @@ function FormInputs({
 		validateDuration,
 		validateDescription,
 		validationErrors,
-	} = useValidation(formData);
+	} = useValidationFormInputs(formData);
 
 	return (
 		<>
@@ -62,7 +61,8 @@ function FormInputs({
 									labelText='City'
 									value={formData.city}
 									onChange={event => onChange("city", event)}
-									onBlur={() => validateCity(formData.city)}
+									onBlur={validateCity}
+									error={validationErrors?.city}
 								/>
 								<Input
 									id='company'
@@ -70,7 +70,8 @@ function FormInputs({
 									labelText='Comapany Name'
 									value={formData.company}
 									onChange={event => onChange("company", event)}
-									onBlur={() => validateCompany(formData.company)}
+									onBlur={validateCompany}
+									error={validationErrors?.company}
 								/>
 								<Input
 									id='duration'
@@ -78,7 +79,8 @@ function FormInputs({
 									labelText='Duration of offer'
 									value={formData.duration.toString()}
 									onChange={event => onChange("duration", event)}
-									onBlur={() => validateDuration(formData.duration.toString())}
+									onBlur={validateDuration}
+									error={validationErrors?.duration}
 								/>
 								<Input
 									placeholder='Add Logo your firm'
@@ -94,7 +96,8 @@ function FormInputs({
 									cols={40}
 									value={formData.description}
 									onChange={event => onDescriptionChange("description", event)}
-									onBlur={() => validateDescription(formData.description)}
+									onBlur={validateDescription}
+									error={validationErrors?.description}
 								/>
 
 								<div className={css.buttonWrapper}>

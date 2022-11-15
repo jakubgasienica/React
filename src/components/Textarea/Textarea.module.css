@@ -3,6 +3,22 @@
 	border: none;
 	background-color: #dbdbdb;
 	border-radius: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.errorWrapper {
+	height: 20px;
+}
+.errorText {
+	color: #b82727;
+}
+
+.error {
+	border: #b82727 solid 2px;
+}
+
+.checked {
+	border: #48a142 solid 2px;
 }
 
 @media screen and (min-width: 768px) {
