@@ -22,6 +22,7 @@ function useValidationFormInputs(formData: FormDataSingle) {
 			...state,
 			title: error,
 		}));
+		return !error;
 	}
 
 	function validateCity() {
@@ -37,6 +38,7 @@ function useValidationFormInputs(formData: FormDataSingle) {
 			...state,
 			city: error,
 		}));
+		return !error;
 	}
 
 	function validateCompany() {
@@ -52,21 +54,25 @@ function useValidationFormInputs(formData: FormDataSingle) {
 			...state,
 			company: error,
 		}));
+		return !error;
 	}
 
 	function validateDuration() {
 		let error = "";
-		if (isTooLong(formData.duration.toString(), 2)) {
+		const maxDuration = 99;
+
+		if (formData.duration > maxDuration) {
 			error = "Title is too long";
 		}
 
-		if (isTooShort(formData.duration.toString(), 1)) {
+		if (formData.duration <= 0) {
 			error = "Title is too short";
 		}
 		setValidationErrors(state => ({
 			...state,
 			duration: error,
 		}));
+		return !error;
 	}
 
 	function validateDescription() {
@@ -83,15 +89,20 @@ function useValidationFormInputs(formData: FormDataSingle) {
 			...state,
 			description: error,
 		}));
+
+		return !error;
 	}
 
 	function validateAll() {
-		validateTitle();
-		validateCity();
-		validateCompany();
-		validateDuration();
-		validateDescription();
+		return [
+			validateTitle(),
+			validateCity(),
+			validateCompany(),
+			validateDuration(),
+			validateDescription(),
+		].every(value => value);
 	}
+
 	return {
 		validateTitle,
 		validateCity,

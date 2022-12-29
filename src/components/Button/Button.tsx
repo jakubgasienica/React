@@ -6,18 +6,22 @@ type Props = {
 	children: string;
 	onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 	type: TypeBtn;
+	submit?: boolean;
 };
 
 type TypeBtn = "form" | "offer" | "submit";
 
-function Button({ children, onClick, type }: Props) {
+function Button({ children, onClick, type, submit }: Props) {
 	const classNames = cn({
 		[css.form]: type === "form",
 		[css.offer]: type === "offer",
 		[css.submit]: type === "submit",
 	});
 	return (
-		<button onClick={onClick} className={classNames}>
+		<button
+			onClick={onClick}
+			className={classNames}
+			type={submit ? "submit" : "button"}>
 			{children}
 		</button>
 	);

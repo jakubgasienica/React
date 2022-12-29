@@ -1,0 +1,52 @@
+.formWrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.checkboxWrappper {
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px;
+	background-color: #dbdbdb;
+	padding: 10px;
+	margin: 10px;
+}
+
+.errorWrapper {
+	height: 20px;
+	text-align: center;
+}
+
+.errorText {
+	color: #b82727;
+}
+
+.salariesWrpapper {
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px;
+	border: #dbdbdb solid 2px;
+	padding: 10px;
+	margin: 10px;
+}
+.salariesWrpapper input {
+	width: max-content;
+}
+
+@media screen and (min-width: 768px) {
+	.formWrapper {
+		max-width: 1000px;
+	}
+
+	.checkboxButtons {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 5px;
+	}
+	.salariesWrapperWithoutSubtitle {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+	}
+}

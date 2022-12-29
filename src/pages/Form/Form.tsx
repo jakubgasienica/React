@@ -2,12 +2,12 @@ import css from "./Form.module.css";
 import { ConfigContext } from "components/ConfigContextProvider/configContext";
 import { useForm } from "./useForm";
 import { FormInputs } from "./FormInputs/FormInputs";
-import { FormCheckboxes } from "./FormCheckboxes.module.css/FormCheckboxes";
+import { FormCheckboxes } from "./FormCheckboxes/FormCheckboxes";
 import { useState } from "react";
 
 enum Steps {
-	Inputs = 1,
-	Checkboxes = 2,
+	Inputs,
+	Checkboxes,
 }
 
 function Form() {

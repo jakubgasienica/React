@@ -34,7 +34,15 @@ function FormInputs({
 		validateDuration,
 		validateDescription,
 		validationErrors,
+		validateAll,
 	} = useValidationFormInputs(formData);
+
+	const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
+		// const isValid = validateAll();
+		// if (isValid) {
+		onHandleNext(e);
+		// }
+	};
 
 	return (
 		<>
@@ -103,7 +111,7 @@ function FormInputs({
 								<div className={css.buttonWrapper}>
 									<div className={css.activeStep} />
 									<div className={css.disastiveStep} />
-									<Button onClick={onHandleNext} type='form'>
+									<Button onClick={handleNext} type='form'>
 										{"Next Step >"}
 									</Button>
 								</div>

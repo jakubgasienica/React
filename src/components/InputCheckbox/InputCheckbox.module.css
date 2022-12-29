@@ -1,15 +1,50 @@
 .box {
 	display: flex;
-	flex-direction: row;
+	gap: 1rem;
+}
+/* #dbdbdb  #f28050;*/
+.checkbox {
+	display: none;
 }
 
-.button {
-	border-radius: 50%;
-	width: 20px;
-	height: 20px;
+/* .boxCheckbox {
+	height: 1.5rem;
+	width: 1.5rem;
 	border: 3px solid #7d7c7a;
-	background-color: transparent;
+	border-radius: 50%;
+	cursor: pointer;
+	position: relative;
+} */
+
+.label {
+	cursor: pointer;
 }
 
-.checked {
+.checkboxChecked {
+	height: 1.5rem;
+	width: 1.5rem;
+	border: 3px solid #f28050;
+	border-radius: 50%;
+	cursor: pointer;
+
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.checkboxNotChecked {
+	cursor: pointer;
+
+	height: 1.5rem;
+	width: 1.5rem;
+	border: 3px solid #7d7c7a;
+	border-radius: 50%;
+}
+.checkboxCheckedAfter {
+	height: 0.5rem;
+	width: 0.5rem;
+	background-color: #f28050;
+	border-radius: 50%;
+	cursor: pointer;
 }

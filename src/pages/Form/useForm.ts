@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import type {
 	FormData,
-	FormDataMultiple,
+	KeyOfMultiple,
 	ContractType,
 	ContractTypeSalary,
 } from "utils/type";
@@ -63,35 +63,32 @@ const useForm = () => {
 	};
 
 	function handleMultipleChange(
-		multiplyArg: keyof FormDataMultiple,
-		event: ChangeEvent<HTMLInputElement>
+		id: typeof formData[KeyOfMultiple][0],
+		key: KeyOfMultiple
 	) {
-		const tmp = [...formData[multiplyArg]];
+		const tmp = [...formData[key]];
 
-		if (tmp.includes(parseInt(event.target.value))) {
-			tmp.splice(tmp.indexOf(parseInt(event.target.value)), 1);
+		if (tmp.includes(id)) {
+			tmp.splice(tmp.indexOf(id), 1);
 		} else {
-			tmp.push(parseInt(event.target.value));
+			tmp.push(id);
 		}
 
 		setFormData(state => ({
 			...state,
-			[multiplyArg]: tmp,
+			[key]: tmp,
 		}));
 	}
 
-	function handleSalaryCheckboxChange(event: ChangeEvent<HTMLInputElement>) {
-		const id = parseInt(event.target.value);
+	function handleSalaryCheckboxChange(idValue: ContractType["id"]) {
 		setFormData(state => {
-			const index = state.contractTypes.findIndex(
-				({ contractTypeId }) => id === contractTypeId
-			);
+			const index = state.contractTypes.findIndex(({ id }) => id === idValue);
 
 			if (index >= 0) {
 				state.contractTypes.splice(index, 1);
 			} else {
 				state.contractTypes.push({
-					contractTypeId: id,
+					id: idValue,
 					salaryFrom: 0,
 					salaryTo: 0,
 				});
@@ -101,16 +98,15 @@ const useForm = () => {
 	}
 
 	function handleSalaryChange(
-		id: ContractType["contractTypeId"],
+		id: number,
 		key: keyof ContractTypeSalary,
-		event: ChangeEvent<HTMLInputElement>
+		event: React.ChangeEvent<HTMLInputElement>
 	) {
 		const str = event.target.value;
-
 		setFormData(state => ({
 			...state,
 			contractTypes: state.contractTypes.map(type => {
-				if (type.contractTypeId === id) {
+				if (type.id === id) {
 					return {
 						...type,
 						[key]: str,
@@ -121,7 +117,9 @@ const useForm = () => {
 		}));
 	}
 
-	async function handleSubmit() {
+	async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+		e.preventDefault();
+
 		const params = {
 			method: "POST",
 			body: JSON.stringify({
@@ -135,7 +133,7 @@ const useForm = () => {
 				contracts: formData.contractTypes.map(con => ({
 					salary_from: con.salaryFrom,
 					salary_to: con.salaryTo,
-					contract_type_id: con.contractTypeId,
+					contract_type_id: con.id,
 				})),
 			}),
 			headers: {
@@ -153,6 +151,7 @@ const useForm = () => {
 			setLoading(Loading.Load);
 		}
 	}
+
 	return {
 		formData,
 		handleChange,

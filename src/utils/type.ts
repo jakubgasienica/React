@@ -25,11 +25,15 @@ type ContractTypeSalary = {
 	salaryFrom: number;
 	salaryTo: number;
 };
-//ContracttypePayload
-type ContractTypePayload = {
-	contractTypeId: ContractType["id"]; //context
-} & ContractTypeSalary;
 
+type ContractType = {
+	id: number;
+	name: string;
+};
+
+//ContracttypePayloa
+
+// todo refactor -> przniesć typy ktore sie powtarzaja do type
 type FormDataSingle = {
 	title: string;
 	thumb: null | File;
@@ -42,13 +46,23 @@ type FormDataSingle = {
 type FormDataMultiple = {
 	benefits: number[];
 	categories: number[];
-	contractTypes: ContractType[];
+	contractTypes: {
+		salaryFrom: ContractTypeSalary["salaryFrom"];
+		salaryTo: ContractTypeSalary["salaryTo"];
+		id: ContractType["id"];
+	}[];
 	seniorities: number[];
 };
 
 type FormData = FormDataSingle & FormDataMultiple;
 
+type KeyOfMultiple = keyof Pick<
+	FormDataMultiple,
+	"benefits" | "categories" | "seniorities"
+>;
+
 export type {
+	KeyOfMultiple,
 	Offer,
 	FormData,
 	FormDataMultiple,

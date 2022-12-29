@@ -3,32 +3,40 @@ import css from "./InputCheckbox.module.css";
 type Props = {
 	checked: boolean;
 	id: string;
-	onChange: React.ChangeEventHandler<HTMLInputElement>;
+	onChange: (checked: boolean) => void;
 	value: number;
 	htmlFor: string;
 	children: string;
 };
 
-// 1. div + input hidden/checkbox z height/width 0
-// 2. aria (aria-checked, aria-label, aria-role) i role - atrybuty accessibility
-// 3. tabIndex
-// 4. onFocus / addEventListener('focus') z divem
-// 5. click na checkbox,
-// Custom checkbox react accessible
-
 function InputCheckbox({ checked, id, onChange, value, children }: Props) {
+	function handleChecked() {
+		onChange(!checked);
+	}
+
 	return (
 		<div className={css.box}>
-			<input
-				checked={checked}
-				id={id}
-				onChange={onChange}
-				value={value}
-				className={css.button}
-				type='checkbox'
-			/>
-
-			<label htmlFor={id}>{children}</label>
+			<div className={css.boxCheckbox}>
+				<input
+					checked={checked}
+					id={id}
+					onChange={handleChecked}
+					value={value}
+					className={css.checkbox}
+					type='checkbox'
+				/>
+				{checked && (
+					<div className={css.checkboxChecked} onClick={handleChecked}>
+						<div className={css.checkboxCheckedAfter} />
+					</div>
+				)}
+				{!checked && (
+					<div className={css.checkboxNotChecked} onClick={handleChecked} />
+				)}
+			</div>
+			<label htmlFor={id} className={css.label}>
+				{children}
+			</label>
 		</div>
 	);
 }

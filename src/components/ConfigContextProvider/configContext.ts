@@ -19,6 +19,7 @@ type Seniority = {
 	id: number;
 	name: string;
 };
+
 type Config = {
 	categories: Category[];
 	benefits: Benefit[];

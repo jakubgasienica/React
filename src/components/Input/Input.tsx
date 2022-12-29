@@ -27,6 +27,7 @@ function Input({
 	error,
 }: Props) {
 	const [touched, setTouched] = useState(false);
+
 	function handleChange(event: ChangeEvent<HTMLInputElement>) {
 		setTouched(true);
 		onChange(event);
