@@ -28,11 +28,11 @@ function useValidationFormInputs(formData: FormDataSingle) {
 	function validateCity() {
 		let error = "";
 		if (isTooLong(formData.city, 30)) {
-			error = "Title is too long";
+			error = "City is too long";
 		}
 
 		if (isTooShort(formData.city, 2)) {
-			error = "Title is too short";
+			error = "City is too short";
 		}
 		setValidationErrors(state => ({
 			...state,
@@ -44,11 +44,11 @@ function useValidationFormInputs(formData: FormDataSingle) {
 	function validateCompany() {
 		let error = "";
 		if (isTooLong(formData.company, 30)) {
-			error = "Title is too long";
+			error = "Company name is too long";
 		}
 
 		if (isTooShort(formData.company, 2)) {
-			error = "Title is too short";
+			error = "company name is too short";
 		}
 		setValidationErrors(state => ({
 			...state,
@@ -59,14 +59,9 @@ function useValidationFormInputs(formData: FormDataSingle) {
 
 	function validateDuration() {
 		let error = "";
-		const maxDuration = 99;
 
-		if (formData.duration > maxDuration) {
-			error = "Title is too long";
-		}
-
-		if (formData.duration <= 0) {
-			error = "Title is too short";
+		if (parseInt(formData.duration) <= 0) {
+			error = "Enter date";
 		}
 		setValidationErrors(state => ({
 			...state,
@@ -78,11 +73,11 @@ function useValidationFormInputs(formData: FormDataSingle) {
 	function validateDescription() {
 		let error = "";
 		if (isTooLong(formData.description, 10000)) {
-			error = "Title is too long";
+			error = "Description is too long";
 		}
 
 		if (isTooShort(formData.description, 1)) {
-			error = "Title is too short";
+			error = "Description is too short";
 		}
 
 		setValidationErrors(state => ({

@@ -14,7 +14,7 @@ type Props = {
 	onBlur?: () => void;
 };
 
-type Type = "password" | "text" | "email" | "file" | "checkbox";
+type Type = "password" | "text" | "email" | "file" | "checkbox" | "date";
 
 function Input({
 	id,
@@ -33,15 +33,22 @@ function Input({
 		onChange(event);
 	}
 
-	const classNamesInput = cn(css.default, {
+	let classNamesInput = cn(css.default, {
 		[css.error]: !!error,
 		[css.checked]: touched && !error,
 	});
 
-	const classNamesIcon = cn(css.defaultIcon, {
+	let classNamesIcon = cn(css.defaultIcon, {
 		[css.errorIcon]: !!error,
 		[css.checkedIcon]: touched && !error,
 	});
+
+	if (type === "date") {
+		classNamesIcon = cn(css.defaultIconDate, {
+			[css.errorIconDate]: !!error,
+			[css.checkedIconDate]: touched && !error,
+		});
+	}
 
 	return (
 		<div className={css.wrapper}>

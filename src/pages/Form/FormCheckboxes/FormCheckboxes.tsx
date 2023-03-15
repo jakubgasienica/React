@@ -21,9 +21,7 @@ interface Props {
 		event: React.ChangeEvent<HTMLInputElement>
 	) => void;
 	onHandleBack: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-	onHandleSubmit: (
-		e: React.MouseEvent<HTMLButtonElement>
-	) => Promise<boolean | undefined>;
+	onHandleSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 function FormCheckboxes({
@@ -38,7 +36,6 @@ function FormCheckboxes({
 		validateSalaryField,
 		validationErrorsFormCheckboxes,
 		handleSubmit,
-		validateSalaryIfIsGrater,
 		clearContractTypeError,
 	} = useValidationFormCheckboxes(formData, onHandleSubmit);
 	return (

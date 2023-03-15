@@ -1,5 +1,4 @@
 import { createContext } from "react";
-import { Offer } from "utils/type";
 
 const initialFilter = {
 	filter: "",

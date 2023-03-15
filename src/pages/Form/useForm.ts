@@ -5,21 +5,22 @@ import type {
 	ContractType,
 	ContractTypeSalary,
 } from "utils/type";
+import { mapRequest } from "./mapRequest";
 
-enum Loading {
-	Load,
+export enum State {
+	None,
+	Loading,
+	Success,
+	Error,
 }
 
 const useForm = () => {
-	const [loading, setLoading] = useState<Loading | null>(null);
-	const [error, setError] = useState(false);
-
+	const [state, setState] = useState<State>(State.None);
 	const [formData, setFormData] = useState<FormData>({
 		title: "",
 		thumb: null,
 		city: "",
-		duration: 0,
-		//  wartośc deafult 0 -  czy moge zmienic na coś innego zeby nie było erroru
+		duration: "",
 		company: "",
 		benefits: [],
 		categories: [],
@@ -28,11 +29,19 @@ const useForm = () => {
 		description: "",
 	});
 
+	const handleDuration = (event: ChangeEvent<HTMLInputElement>) => {
+		const str = event.target.value;
+
+		setFormData(state => ({
+			...state,
+			duration: str,
+		}));
+	};
 	const handleChange = (
 		key: keyof FormData,
 		event: ChangeEvent<HTMLInputElement>
 	) => {
-		const str = event.target.value;
+		let str = event.target.value;
 
 		setFormData(state => ({
 			...state,
@@ -102,16 +111,18 @@ const useForm = () => {
 		key: keyof ContractTypeSalary,
 		event: React.ChangeEvent<HTMLInputElement>
 	) {
-		const str = event.target.value;
+		const value = parseInt(event.target.value);
+
 		setFormData(state => ({
 			...state,
 			contractTypes: state.contractTypes.map(type => {
 				if (type.id === id) {
 					return {
 						...type,
-						[key]: str,
+						[key]: value,
 					};
 				}
+
 				return type;
 			}),
 		}));
@@ -119,23 +130,11 @@ const useForm = () => {
 
 	async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
 		e.preventDefault();
+		const mapedRequestData = await mapRequest(formData);
 
 		const params = {
 			method: "POST",
-			body: JSON.stringify({
-				benefit_ids: formData.benefits,
-				category_ids: formData.categories,
-				seniority_id: formData.seniorities,
-				title: formData.title,
-				duration: formData.duration,
-				company_name: formData.company,
-				company_city: formData.city,
-				contracts: formData.contractTypes.map(con => ({
-					salary_from: con.salaryFrom,
-					salary_to: con.salaryTo,
-					contract_type_id: con.id,
-				})),
-			}),
+			body: JSON.stringify(mapedRequestData),
 			headers: {
 				Accept: "application/json",
 				"Content-Type": "application/json",
@@ -143,12 +142,13 @@ const useForm = () => {
 		};
 
 		try {
+			setState(State.Loading);
+
 			const res = await fetch("http://localhost:4000/offers", params);
 			await res.json();
+			setState(State.Success);
 		} catch (e) {
-			return error;
-		} finally {
-			setLoading(Loading.Load);
+			setState(State.Error);
 		}
 	}
 
@@ -161,6 +161,8 @@ const useForm = () => {
 		handleSalaryCheckboxChange,
 		handleSubmit,
 		handleDescription,
+		handleDuration,
+		state,
 	};
 };
 

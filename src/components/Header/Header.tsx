@@ -8,6 +8,7 @@ import {
 	SortContext,
 	Direction,
 } from "components/SortContextProvider/SortContext";
+import { Link } from "react-router-dom";
 
 function Header() {
 	const { setSortingMethod } = useContext(SortContext);
@@ -18,9 +19,12 @@ function Header() {
 
 	return (
 		<header className={css.header}>
-			<div className={css.logo}>
-				<img src={logo} alt='work with it' />
-			</div>
+			<Link to='/'>
+				<div className={css.logo}>
+					<img src={logo} alt='work with it' />
+				</div>
+			</Link>
+
 			<Search />
 			<div className={css.sortContainerDesktop}>
 				<SortDesktop onClick={handleSortChange} />

@@ -1,9 +1,10 @@
 import css from "./Form.module.css";
 import { ConfigContext } from "components/ConfigContextProvider/configContext";
-import { useForm } from "./useForm";
+import { useForm, State } from "./useForm";
 import { FormInputs } from "./FormInputs/FormInputs";
 import { FormCheckboxes } from "./FormCheckboxes/FormCheckboxes";
 import { useState } from "react";
+import { SuccessState } from "components/SuccessState/SuccessState";
 
 enum Steps {
 	Inputs,
@@ -21,6 +22,8 @@ function Form() {
 		handleSalaryChange,
 		handleSalaryCheckboxChange,
 		handleDescription,
+		handleDuration,
+		state,
 	} = useForm();
 
 	function handleNext(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -29,6 +32,10 @@ function Form() {
 
 	function handleBack(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
 		setStep(Steps.Inputs);
+	}
+
+	if (state === State.Success) {
+		return <SuccessState />;
 	}
 
 	return (
@@ -44,6 +51,7 @@ function Form() {
 									onChange={handleChange}
 									onHandleNext={handleNext}
 									onDescriptionChange={handleDescription}
+									onHandleDuration={handleDuration}
 								/>
 							)}
 

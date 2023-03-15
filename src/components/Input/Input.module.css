@@ -21,11 +21,20 @@
 	right: 10px;
 }
 
-.errorIcon i {
+.errorIconDate,
+.checkedIconDate {
+	position: absolute;
+	bottom: 5px;
+	right: 20px;
+}
+
+.errorIcon,
+.errorIconDate i {
 	color: #b82727;
 }
 
-.checkedIcon i {
+.checkedIcon,
+.checkedIconDate i {
 	color: #48a142;
 }
 

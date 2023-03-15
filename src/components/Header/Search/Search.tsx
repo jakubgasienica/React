@@ -12,11 +12,6 @@ function Search() {
 
 	return (
 		<div className={css.searchBox}>
-			{/* // TODO: use Input component 
-			padding dynamicny  w inpucie
-			no dispLAY - hidden 
-			tranform scala 0 
-			przeniesc funkcje wyżej*/}
 			<input
 				className={css.input}
 				onChange={searchOffer}
@@ -26,7 +21,7 @@ function Search() {
 				onBlur={() => setActive(true)}
 			/>
 			<div className={isActive ? css.searchIcon : css.searchIconNoDisplay}>
-				<i className='fa-solid fa-magnifying-glass'></i>
+				<i className='fa-solid fa-magnifying-glass' />
 			</div>
 		</div>
 	);

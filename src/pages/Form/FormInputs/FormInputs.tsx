@@ -18,6 +18,7 @@ interface Props {
 		onChangeArg: keyof FormDataSingle,
 		event: React.ChangeEvent<HTMLTextAreaElement>
 	) => void;
+	onHandleDuration: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function FormInputs({
@@ -26,6 +27,7 @@ function FormInputs({
 	onFileChange,
 	onHandleNext,
 	onDescriptionChange,
+	onHandleDuration,
 }: Props) {
 	const {
 		validateTitle,
@@ -38,10 +40,10 @@ function FormInputs({
 	} = useValidationFormInputs(formData);
 
 	const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
-		// const isValid = validateAll();
-		// if (isValid) {
-		onHandleNext(e);
-		// }
+		const isValid = validateAll();
+		if (isValid) {
+			onHandleNext(e);
+		}
 	};
 
 	return (
@@ -86,9 +88,10 @@ function FormInputs({
 									placeholder='Duration'
 									labelText='Duration of offer'
 									value={formData.duration.toString()}
-									onChange={event => onChange("duration", event)}
+									onChange={event => onHandleDuration(event)}
 									onBlur={validateDuration}
 									error={validationErrors?.duration}
+									type={"date"}
 								/>
 								<Input
 									placeholder='Add Logo your firm'

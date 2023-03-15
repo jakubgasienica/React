@@ -5,12 +5,6 @@ import type {
 	ContractTypeSalary,
 } from "utils/type";
 
-// enum Field {
-// 	salaryFrom,
-// 	salaryTo,
-// 	both,
-// }
-
 type ContractTypesError = {
 	id: ContractType["id"];
 	field: keyof ContractTypeSalary | "both";
@@ -23,14 +17,11 @@ type ValidationErrors = {
 	benefits: string;
 	seniorities: string;
 	minimumOneCategory: string;
-	oneFieldHasValue: string;
 };
 
 function useValidationFormCheckboxes(
 	formData: FormDataMultiple,
-	onHandleSubmit: (
-		e: React.MouseEvent<HTMLButtonElement>
-	) => Promise<boolean | undefined>
+	onHandleSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void
 ) {
 	const [validationErrorsFormCheckboxes, setValidationErrorsFormCheckboxes] =
 		useState<ValidationErrors>({
@@ -39,7 +30,6 @@ function useValidationFormCheckboxes(
 			benefits: "",
 			seniorities: "",
 			minimumOneCategory: "",
-			oneFieldHasValue: "",
 		});
 
 	function validateSalaryField(
@@ -67,14 +57,12 @@ function useValidationFormCheckboxes(
 			return false;
 		}
 
-		// validateSalaryIfIsGrater(id);
+		validateSalaryIfIsGrater(id);
 
 		return true;
 	}
 
 	function validateSalaryIfIsGrater(id: ContractType["id"]) {
-		// const contractType = formData.contractTypes.find(contractType => contractType.id === id)
-
 		const salaryTo =
 			formData.contractTypes.find(contractType => contractType.id === id)
 				?.salaryTo ?? 0;
@@ -99,7 +87,7 @@ function useValidationFormCheckboxes(
 				contractTypes: [
 					...state.contractTypes,
 					{ id, error, field },
-					{ id, error, field: "salaryTo" },
+					{ id, error, field: field },
 				],
 			}));
 			return false;
@@ -165,50 +153,19 @@ function useValidationFormCheckboxes(
 		return valid;
 	}
 
-	//  formik ->
-	// react-hook-forms -> lepsza
-
-	// function validateSalaryIfOneFieldHasValue() {
-	// 	setValidationErrorsFormCheckboxes(state => ({
-	// 		...state,
-	// 		oneFieldHasValue: "",
-	// 	}));
-
-	// 	if (
-	// 		formData.contractTypes.find(
-	// 			contractType =>
-	// 				contractType.salaryTo > 0 && contractType.salaryFrom === 0
-	// 		)
-	// 	) {
-	// 		formData.contractTypes.find(contractType => contractType.salaryFrom);
-	// 		debugger;
-	// 	} else if (
-	// 		formData.contractTypes.find(
-	// 			contractType =>
-	// 				contractType.salaryFrom > 0 && contractType.salaryTo === 0
-	// 		)?.id
-	// 	) {
-	// 		formData.contractTypes.push({ salaryFrom: 0, salaryTo: 0, id: 1 });
-	// 		debugger;
-	// 	}
-	// }
-
 	function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+		e.preventDefault();
+
 		if (
 			[
 				validateMultiplesChoice("benefits"),
 				validateMultiplesChoice("categories"),
 				validateMultiplesChoice("seniorities"),
 				validateSalary(),
-				// 1. Przynajmniej jeden kontrakt caly wypelniony -> validateSalaryIfOneFieldHasValue()
-				// 2. Jezeli jakis nie jest wypelniony
-				// validateSalaryIfOneFieldHasValue(),
-				// ...formData.contractTypes.map(({ id }) => validateSalaryIfIsGrater(id)),
 			].every(value => value)
-		)
-			console.log("lol");
-		e.preventDefault();
-		// onHandleSubmit(e);
+		) {
+			onHandleSubmit(e);
+		}
 	}
 	return {
 		validationErrorsFormCheckboxes,

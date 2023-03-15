@@ -1,0 +1,78 @@
+.box {
+	background-color: #dbdbdb;
+	border-radius: 20px;
+}
+
+.properties {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1rem;
+	margin: 0 5%;
+}
+
+.titleBox {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.propertiesBox {
+	display: flex;
+	flex-direction: column;
+}
+
+.dateBox {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 0 5%;
+}
+
+.descriptionBox {
+	display: flex;
+	flex-direction: column;
+}
+
+.titleBox::after,
+.propertiesBox::after,
+.descriptionBox::after {
+	content: "";
+	display: block;
+	height: 1px;
+	width: 90%;
+	margin-top: 1rem;
+	background-color: #f28050;
+	align-self: center;
+}
+
+.img {
+	width: 5rem;
+}
+
+.title {
+	font-size: xx-large;
+}
+
+.subtitle {
+	color: #f28050;
+	margin: 5%;
+}
+
+.description {
+	margin: 0 5%;
+}
+
+@media screen and (min-width: 768px) {
+	.box {
+		max-width: 1000px;
+		margin: auto;
+	}
+	.propertiesBox {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+	.propertiesBox::after {
+		margin: auto;
+	}
+}
